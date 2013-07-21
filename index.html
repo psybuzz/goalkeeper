@@ -13,12 +13,14 @@
 		<header></header>
 		<div id="logo"></div>
 
+		<!-- Left side: goals, mostly -->
 		<div id="leftpane">
 			<button class='btn btn-info' id='createGoalBtn'>Create +</button>
 
 			<div id="goalContainer"></div>
 		</div>
 		
+		<!-- Right side: main content, stuff... -->
 		<div id="rightpane">
 			<div id="bigContainer">
 				
@@ -122,7 +124,9 @@
 				events: {
 				  'click span.up':  'up',
 				  'click span.delete': 'remove',
-				  'click span.down': 'down'
+				  'click span.down': 'down',
+				  'mouseover': 'hover',
+				  'mouseout': 'leave',
 				},
 
 				initialize: function(){
@@ -138,9 +142,21 @@
 				render: function(){
 					var self = this;
 
-					$(this.el).html("<div class='goal-label' style='background-color:"+self.model.get('color')+"'>"+self.model.get('title') + ' ' + self.model.get('description') + ' ' + self.model.get('progress')+"</div>");
+					var content = "<div class='goal-label' style='background-color:"+this.model.get('color')+"'>"
+						+this.model.get('title') + ' ' 
+						+ this.model.get('description') + ' ' 
+						+ this.model.get('progress')
+						+ "<div class='removeGoalBtn'>X</div>"+"</div>";
+					$(this.el).html(content);
 
 					return this; // for chainable calls, like .render().el
+				},
+
+				hover: function(){
+
+				},
+				leave: function(){
+
 				},
 				
 				unrender: function(){},
