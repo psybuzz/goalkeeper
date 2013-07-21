@@ -1,284 +1,284 @@
 <html>
-<head>
-	<script src="http://code.jquery.com/jquery-latest.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<link rel="stylesheet" href="css/bootstrap.min.css">
-	<script src="http://underscorejs.org/underscore-min.js"></script>
-	<script src="http://backbonejs.org/backbone-min.js"></script>
-	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,700' rel='stylesheet' type='text/css'>
-	<link href='css/style.css' rel='stylesheet' type='text/css'>
-</head>
-<body style="margin:0; background-color: #F2F2F2;">
-	<header></header>
-	<div id="logo"></div>
-
-	<div id="leftpane">
-		<button class='btn btn-info' id='createGoalBtn'>Create +</button>
-
-		<div id="goalContainer"></div>
-	</div>
-	
-	<div id="rightpane">
-		<div id="bigContainer">
-			
-		</div>
-		<input id="cmd-input" type="text" placeholder="what happened?">
-	</div>
-
-	<button class='btn btn-info' id='switchBtn'>switch</button>
-	
-
-	<script>
-	(function($){
-	//global namespace
-		app = {};
-
-//Models: Goal, Heading, Dateset, Card
-	 	var Goal = Backbone.Model.extend({
-	    	defaults: {
-	      		title: 'stop being sad.',
-	      		description: ' start being awesome.',
-	      		progess: 0,
-	      		total: 100,
-	    	},
-
-	    	initialize: function(){
-	    		this.set({
-	    			color: 'rgb('+Math.floor(128*Math.random()+127)+','+Math.floor(128*Math.random()+127)+','+Math.floor(128*Math.random()+127)+')'
-	    		})
-	    	}
-	  	});
-	  	var Heading = Backbone.Model.extend({
-	  		defaults: {
-	  			visibility: 'private',
-	  			forehead: 'carpe diem motto',
-	  			backhead: 'life set',
-	  			message: 'started 3 years ago<br>some awesome goals to strive for'
-	  		}
-	  	});
-	  	var Dateset = Backbone.Model.extend({
-	  		defaults: {
-	  			date: (new Date()),
-	  			dateName: 'today',
-	  			cards: [],
-	  		}
-	  	});
-	  	var Card = Backbone.Model.extend({
-	  		defaults: {
-	  			text: 'ipsum lorem',
-	  		}
-	  	});
-
-//Collections
-	  	var GoalList = Backbone.Collection.extend({ model: Goal });
-	  	var DatesetList = Backbone.Collection.extend({ model: Dateset });
-	  	var CardList = Backbone.Collection.extend({ model: Card });
-
-//Views for GoalList, Goal, Heading, Dateset, Card
-	//GoalListView
-	  	var GoalListView = Backbone.View.extend({
-	  		el: '#leftpane',
-	  		container: '#goalContainer',
-		    events: {
-		      'click #createGoalBtn': 'createGoal'
-		    },
-
-		    initialize: function(){
-		      _.bindAll(this, 'render', 'unrender', 'createGoal', 'addGoal'); // every function that uses 'this' as the current object should be in here
-
-		      this.collection = new GoalList();
-		      this.collection.bind('add', this.addGoal);
-
-		      this.render();
-		    },
-
-		    render: function(){
-		    	var self = this;
-
-		    	_(this.collection.models).each(function(item){ self.appendItem(item); }, this);
-		    	$(this.container).append("<ul></ul>");
-
-		      	return this; // for chainable calls, like .render().el
-		    },
-
-		    createGoal: function(){
-		    	var goal = new Goal();
-		    	goal.set({
-		    		progress: Math.floor(Math.random()*100)
-		    	});
-		    	this.collection.add(goal);
-		    },
-
-		    addGoal: function(newGoal){
-		     	var goalView = new GoalView({ model: newGoal });
-  				$('ul', this.el).append(goalView.render().el);
-		    },
-		    
-		    unrender: function(){},
-
-		  });
-	//GoalView
-	  	var GoalView = Backbone.View.extend({
-		    events: {
-		      'click span.up':  'up',
-		      'click span.delete': 'remove',
-		      'click span.down': 'down'
-		    },
-
-		    initialize: function(){
-		      _.bindAll(this, 'render', 'unrender', 'up', 'down', 'remove'); // every function that uses 'this' as the current object should be in here
-
-		      this.model.bind('change', this.render);
-		      this.model.bind('remove', this.remove);
-		      this.model.bind('down', this.down);
-
-		      this.render();
-		    },
-
-		    render: function(){
-		    	var self = this;
-
-		    	$(this.el).html("<div class='goal-label' style='background-color:"+self.model.get('color')+"'>"+self.model.get('title') + ' ' + self.model.get('description') + ' ' + self.model.get('progress')+"</div>");
-
-		      	return this; // for chainable calls, like .render().el
-		    },
-		    
-		    unrender: function(){},
-
-		    down: function(){
-		    	var swapped = {
-			        //part1: this.model.get('part2'),
-			        //part2: this.model.get('part1')
-			        part3: this.model.get('part3')-1
-			      };
-			      this.model.set(swapped);
-		    },
-
-		    // `swap()` will interchange an `Item`'s attributes. When the `.set()` model function is called, the event `change` will be triggered.
-		    up: function(){
-		      var swapped = {
-		        //part1: this.model.get('part2'),
-		        //part2: this.model.get('part1')
-		        part3: this.model.get('part3')+1
-		      };
-		      this.model.set(swapped);
-		    },
-		    // `remove()`: We use the method `destroy()` to remove a model from its collection. Normally this would also delete the record from its persistent storage, but we have overridden that (see above).
-		    remove: function(){
-		      this.model.destroy();
-		      $(this.el).remove();
-		    }
-		  });
-	//HeadingView
-		var HeadingView = Backbone.View.extend({
-			el: 'header',
-			events: {
-		      'click span': 'zoom'
-		    },
-
-		    initialize: function(){
-		    	_.bindAll(this, 'render', 'unrender', 'zoom', 'remove'); // every function that uses 'this' as the current object should be in here
-
-		    	this.model.bind('change', this.render);
-		    	this.model.bind('remove', this.remove);
-
-		      //initial heading
-		    	var heading = new Heading();
-				//$('ul', this.el).append(goalView.render().el);
-		    	this.render();
-		    },
-
-		    render: function(){
-		    	var self = this;
-
-		    	$(this.el).html("<div class='jumbotron'><h1 id='forehead'>"+self.model.get('forehead') + '</h1>'
-		    		+ "<h2 id='backhead'>" + self.model.get('backhead') + "</h2>"
-		    		+ "<div id='message' class='lead'" + self.model.get('message')+"</div></div>");
-
-		      	return this; // for chainable calls, like .render().el
-		    },
-
-		    zoom: function(){
-		    	alert('zoom zoom zoooom');
-		    },
-		    
-		    unrender: function(){},
-
-		    // `remove()`: We use the method `destroy()` to remove a model from its collection. Normally this would also delete the record from its persistent storage, but we have overridden that (see above).
-		    remove: function(){
-		      this.model.destroy();
-		      $(this.el).remove();
-		    }
-		});
-	//DatesetView
-		var DatesetView = Backbone.View.extend({
-
-		});
-	//CardView
-		var CardView = Backbone.View.extend({
-
-		});
-
-	//AppView
-		var AppView = Backbone.View.extend({
-			el: $('body'), // el attaches to existing element
-			terminal: '#bigContainer',
-			lastDay: '',
-			events: {
-			  'click button#switchBtn': 'switchMode',
-			  'keypress #cmd-input': 'cmdInput',
-			},
-			initialize: function(){
-			  	_.bindAll(this, 'render', 'switchMode'); // every function that uses 'this' as the current object should be in here
-			  	this.mode = 'goal';
-
-			  	this.head = new HeadingView({ model: new Heading });
-				this.goalList = new GoalListView({ model: new Goal });
-				this.datesets = new DatesetView({ model: new Dateset });
-				this.cards = new CardView({ model: new Card });
-			  	this.render();
-
-			  	$('#cmd-input').focus();
-			},
-			render: function(){
-				if (this.mode == 'goal'){
-					//left side bigger
-				} else {
-					//right side bigger
-				}
-			},
-			switchMode: function(){
-			  	this.mode = this.mode == 'goal' ? 'card' : 'goal';
-			},
-			cmdInput: function(e){
-				if (e.keyCode == 13){
-					var text = $('#cmd-input').val();
-					$('#cmd-input').val('');
-
-					var days = ['sunday','monday','tuesday','wednesday','thursday','friday','saturday'];
-					var day = days[ (new Date).getDay() ];
-
-					if (this.lastDay != day){
-						this.lastDay = day;
-						$(this.terminal).append( "<div class='date-label'>" + day + "</div>" );
-					}
-
-					
-					if (isNaN(text))
-						$(this.terminal).append( "<div class='card-div'><span class='card'>" + text + "</span></div>" );
-					else
-						$(this.terminal).append( "<div class='card-div-num'><span class='card-number'>" + text + "</span></div>" );
-
-					//scroll
-					$("html, body").animate({ scrollTop: $(document).height() }, "fast");
-				}
-			}
-		});
+	<head>
+		<script src="js/jquery-1.10.2.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="js/underscore.1.5.1.js"></script>
+		<script src="js/backbone-min.js"></script>
 		
-//go!
-		app.AppView = new AppView();
+		<link rel="stylesheet" href="css/bootstrap.min.css">
+		<link href='css/google-fonts.css' rel='stylesheet' type='text/css'>
+		<link href='css/style.css' rel='stylesheet' type='text/css'>
+	</head>
+	<body style="margin:0; background-color: #F2F2F2;">
+		<header></header>
+		<div id="logo"></div>
 
-	})(jQuery);
-	</script>
-</body>
+		<div id="leftpane">
+			<button class='btn btn-info' id='createGoalBtn'>Create +</button>
+
+			<div id="goalContainer"></div>
+		</div>
+		
+		<div id="rightpane">
+			<div id="bigContainer">
+				
+			</div>
+			<input id="cmd-input" type="text" placeholder="what happened?">
+		</div>
+
+		<button class='btn btn-info' id='switchBtn'>switch</button>
+		
+		<script>
+		(function($){
+		//global namespace
+			app = {};
+
+	//Models: Goal, Heading, Dateset, Card
+			var Goal = Backbone.Model.extend({
+				defaults: {
+					title: 'stop being sad.',
+					description: ' start being awesome.',
+					progess: 0,
+					total: 100,
+				},
+
+				initialize: function(){
+					this.set({
+						color: 'rgb('+Math.floor(128*Math.random()+127)+','+Math.floor(128*Math.random()+127)+','+Math.floor(128*Math.random()+127)+')'
+					})
+				}
+			});
+			var Heading = Backbone.Model.extend({
+				defaults: {
+					visibility: 'private',
+					forehead: 'carpe diem motto',
+					backhead: 'life set',
+					message: 'started 3 years ago<br>some awesome goals to strive for'
+				}
+			});
+			var Dateset = Backbone.Model.extend({
+				defaults: {
+					date: (new Date()),
+					dateName: 'today',
+					cards: [],
+				}
+			});
+			var Card = Backbone.Model.extend({
+				defaults: {
+					text: 'ipsum lorem',
+				}
+			});
+
+	//Collections
+			var GoalList = Backbone.Collection.extend({ model: Goal });
+			var DatesetList = Backbone.Collection.extend({ model: Dateset });
+			var CardList = Backbone.Collection.extend({ model: Card });
+
+	//Views for GoalList, Goal, Heading, Dateset, Card
+		//GoalListView
+			var GoalListView = Backbone.View.extend({
+				el: '#leftpane',
+				container: '#goalContainer',
+				events: {
+				  'click #createGoalBtn': 'createGoal'
+				},
+
+				initialize: function(){
+				  _.bindAll(this, 'render', 'unrender', 'createGoal', 'addGoal'); // every function that uses 'this' as the current object should be in here
+
+				  this.collection = new GoalList();
+				  this.collection.bind('add', this.addGoal);
+
+				  this.render();
+				},
+
+				render: function(){
+					var self = this;
+
+					_(this.collection.models).each(function(item){ self.appendItem(item); }, this);
+					$(this.container).append("<ul></ul>");
+
+					return this; // for chainable calls, like .render().el
+				},
+
+				createGoal: function(){
+					var goal = new Goal();
+					goal.set({
+						progress: Math.floor(Math.random()*100)
+					});
+					this.collection.add(goal);
+				},
+
+				addGoal: function(newGoal){
+					var goalView = new GoalView({ model: newGoal });
+					$('ul', this.el).append(goalView.render().el);
+				},
+				
+				unrender: function(){},
+
+			  });
+		//GoalView
+			var GoalView = Backbone.View.extend({
+				events: {
+				  'click span.up':  'up',
+				  'click span.delete': 'remove',
+				  'click span.down': 'down'
+				},
+
+				initialize: function(){
+				  _.bindAll(this, 'render', 'unrender', 'up', 'down', 'remove'); // every function that uses 'this' as the current object should be in here
+
+				  this.model.bind('change', this.render);
+				  this.model.bind('remove', this.remove);
+				  this.model.bind('down', this.down);
+
+				  this.render();
+				},
+
+				render: function(){
+					var self = this;
+
+					$(this.el).html("<div class='goal-label' style='background-color:"+self.model.get('color')+"'>"+self.model.get('title') + ' ' + self.model.get('description') + ' ' + self.model.get('progress')+"</div>");
+
+					return this; // for chainable calls, like .render().el
+				},
+				
+				unrender: function(){},
+
+				down: function(){
+					var swapped = {
+						//part1: this.model.get('part2'),
+						//part2: this.model.get('part1')
+						part3: this.model.get('part3')-1
+					  };
+					  this.model.set(swapped);
+				},
+
+				// `swap()` will interchange an `Item`'s attributes. When the `.set()` model function is called, the event `change` will be triggered.
+				up: function(){
+				  var swapped = {
+					//part1: this.model.get('part2'),
+					//part2: this.model.get('part1')
+					part3: this.model.get('part3')+1
+				  };
+				  this.model.set(swapped);
+				},
+				// `remove()`: We use the method `destroy()` to remove a model from its collection. Normally this would also delete the record from its persistent storage, but we have overridden that (see above).
+				remove: function(){
+				  this.model.destroy();
+				  $(this.el).remove();
+				}
+			  });
+		//HeadingView
+			var HeadingView = Backbone.View.extend({
+				el: 'header',
+				events: {
+				  'click span': 'zoom'
+				},
+
+				initialize: function(){
+					_.bindAll(this, 'render', 'unrender', 'zoom', 'remove'); // every function that uses 'this' as the current object should be in here
+
+					this.model.bind('change', this.render);
+					this.model.bind('remove', this.remove);
+
+				  //initial heading
+					var heading = new Heading();
+					//$('ul', this.el).append(goalView.render().el);
+					this.render();
+				},
+
+				render: function(){
+					var self = this;
+
+					$(this.el).html("<div class='jumbotron'><h1 id='forehead'>"+self.model.get('forehead') + '</h1>'
+						+ "<h2 id='backhead'>" + self.model.get('backhead') + "</h2>"
+						+ "<div id='message' class='lead'" + self.model.get('message')+"</div></div>");
+
+					return this; // for chainable calls, like .render().el
+				},
+
+				zoom: function(){
+					alert('zoom zoom zoooom');
+				},
+				
+				unrender: function(){},
+
+				// `remove()`: We use the method `destroy()` to remove a model from its collection. Normally this would also delete the record from its persistent storage, but we have overridden that (see above).
+				remove: function(){
+				  this.model.destroy();
+				  $(this.el).remove();
+				}
+			});
+		//DatesetView
+			var DatesetView = Backbone.View.extend({
+
+			});
+		//CardView
+			var CardView = Backbone.View.extend({
+
+			});
+
+		//AppView
+			var AppView = Backbone.View.extend({
+				el: $('body'), // el attaches to existing element
+				terminal: '#bigContainer',
+				lastDay: '',
+				events: {
+				  'click button#switchBtn': 'switchMode',
+				  'keypress #cmd-input': 'cmdInput',
+				},
+				initialize: function(){
+					_.bindAll(this, 'render', 'switchMode'); // every function that uses 'this' as the current object should be in here
+					this.mode = 'goal';
+
+					this.head = new HeadingView({ model: new Heading });
+					this.goalList = new GoalListView({ model: new Goal });
+					this.datesets = new DatesetView({ model: new Dateset });
+					this.cards = new CardView({ model: new Card });
+					this.render();
+
+					$('#cmd-input').focus();
+				},
+				render: function(){
+					if (this.mode == 'goal'){
+						//left side bigger
+					} else {
+						//right side bigger
+					}
+				},
+				switchMode: function(){
+					this.mode = this.mode == 'goal' ? 'card' : 'goal';
+				},
+				cmdInput: function(e){
+					if (e.keyCode == 13){
+						var text = $('#cmd-input').val();
+						$('#cmd-input').val('');
+
+						var days = ['sunday','monday','tuesday','wednesday','thursday','friday','saturday'];
+						var day = days[ (new Date).getDay() ];
+
+						if (this.lastDay != day){
+							this.lastDay = day;
+							$(this.terminal).append( "<div class='date-label'>" + day + "</div>" );
+						}
+
+						
+						if (isNaN(text))
+							$(this.terminal).append( "<div class='card-div'><span class='card'>" + text + "</span></div>" );
+						else
+							$(this.terminal).append( "<div class='card-div-num'><span class='card-number'>" + text + "</span></div>" );
+
+						//scroll
+						$("html, body").animate({ scrollTop: $(document).height() }, "fast");
+					}
+				}
+			});
+			
+	//go!
+			app.AppView = new AppView();
+
+		})(jQuery);
+		</script>
+	</body>
 </html>	
