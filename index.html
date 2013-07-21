@@ -32,16 +32,17 @@
 		
 		<script>
 		(function($){
-		//global namespace
+			//global namespace
 			app = {};
 
-	//Models: Goal, Heading, Dateset, Card
+			//Models: Goal, Heading, Dateset, Card
 			var Goal = Backbone.Model.extend({
 				defaults: {
 					title: 'stop being sad.',
 					description: ' start being awesome.',
 					progess: 0,
 					total: 100,
+					priority: 0,
 				},
 
 				initialize: function(){
@@ -50,6 +51,7 @@
 					})
 				}
 			});
+			
 			var Heading = Backbone.Model.extend({
 				defaults: {
 					visibility: 'private',
@@ -58,6 +60,7 @@
 					message: 'started 3 years ago<br>some awesome goals to strive for'
 				}
 			});
+			
 			var Dateset = Backbone.Model.extend({
 				defaults: {
 					date: (new Date()),
@@ -65,19 +68,20 @@
 					cards: [],
 				}
 			});
+			
 			var Card = Backbone.Model.extend({
 				defaults: {
 					text: 'ipsum lorem',
 				}
 			});
 
-	//Collections
+			//Collections
 			var GoalList = Backbone.Collection.extend({ model: Goal });
 			var DatesetList = Backbone.Collection.extend({ model: Dateset });
 			var CardList = Backbone.Collection.extend({ model: Card });
 
-	//Views for GoalList, Goal, Heading, Dateset, Card
-		//GoalListView
+			//Views for GoalList, Goal, Heading, Dateset, Card
+			//GoalListView
 			var GoalListView = Backbone.View.extend({
 				el: '#leftpane',
 				container: '#goalContainer',
@@ -106,7 +110,8 @@
 				createGoal: function(){
 					var goal = new Goal();
 					goal.set({
-						progress: Math.floor(Math.random()*100)
+						progress: Math.floor(Math.random()*100),
+						priority: this.collection.length + 1 //right now just have the priority be listed in order of creation
 					});
 					this.collection.add(goal);
 				},
@@ -116,10 +121,13 @@
 					$('ul', this.el).append(goalView.render().el);
 				},
 				
-				unrender: function(){},
+				unrender: function(){
+					
+				},
 
 			  });
-		//GoalView
+			  
+			//GoalView
 			var GoalView = Backbone.View.extend({
 				events: {
 				  'click span.up':  'up',
@@ -142,12 +150,13 @@
 				render: function(){
 					var self = this;
 
-					var content = "<div class='goal-label' style='background-color:"+this.model.get('color')+"'>"
-						+this.model.get('title') + ' ' 
-						+ this.model.get('description') + ' ' 
-						+ this.model.get('progress')
-						+ "<div class='removeGoalBtn'>X</div>"+"</div>";
-					$(this.el).html(content);
+					$(this.el).html("<div class='goal-label' contentEditable='true' style='background-color:" 
+					+ self.model.get('color') + "'>" 
+					+ self.model.get('priority') + ". " 
+					+ self.model.get('title') + ' '
+					+ self.model.get('description') + ' ' 
+					+ self.model.get('progress')
+					+"</div>");
 
 					return this; // for chainable calls, like .render().el
 				},
@@ -185,7 +194,8 @@
 				  $(this.el).remove();
 				}
 			  });
-		//HeadingView
+			  
+			//HeadingView
 			var HeadingView = Backbone.View.extend({
 				el: 'header',
 				events: {
@@ -226,16 +236,17 @@
 				  $(this.el).remove();
 				}
 			});
-		//DatesetView
+			
+			//DatesetView
 			var DatesetView = Backbone.View.extend({
 
 			});
-		//CardView
+			//CardView
 			var CardView = Backbone.View.extend({
 
 			});
 
-		//AppView
+			//AppView
 			var AppView = Backbone.View.extend({
 				el: $('body'), // el attaches to existing element
 				terminal: '#bigContainer',
@@ -291,7 +302,7 @@
 				}
 			});
 			
-	//go!
+			//go!
 			app.AppView = new AppView();
 
 		})(jQuery);
