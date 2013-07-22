@@ -43,11 +43,12 @@
 					progess: 0,
 					total: 100,
 					priority: 0,
+					index: -1
 				},
 
 				initialize: function(){
 					this.set({
-						color: 'rgb('+Math.floor(128*Math.random()+127)+','+Math.floor(128*Math.random()+127)+','+Math.floor(128*Math.random()+127)+')'
+						color: 'rgb('+Math.floor(128*Math.random()+127)+','+Math.floor(128*Math.random()+127)+','+Math.floor(128*Math.random()+127)+')',
 					})
 				}
 			});
@@ -76,7 +77,14 @@
 			});
 
 			//Collections
-			var GoalList = Backbone.Collection.extend({ model: Goal });
+			var GoalList = Backbone.Collection.extend({ 
+				model: Goal,
+				initialize: function(){},
+				//should help sort based on priority, called by collection.sort()
+				comparator: function(goal) {
+					return goal.get('priority');
+				}
+			});
 			var DatesetList = Backbone.Collection.extend({ model: Dateset });
 			var CardList = Backbone.Collection.extend({ model: Card });
 
@@ -111,7 +119,7 @@
 					var goal = new Goal();
 					goal.set({
 						progress: Math.floor(Math.random()*100),
-						priority: this.collection.length + 1 //right now just have the priority be listed in order of creation. hmmm ok...
+						index: this.collection.length
 					});
 					this.collection.add(goal);
 				},
@@ -142,12 +150,12 @@
 
 				initialize: function(){
 					// every function that uses 'this' as the current object should be in here
-				  _.bindAll(this, 'render', 'unrender', 'up', 'down', 'swap', 'remove', 'hover', 'leave', 'removeGoalDown', 'removeGoalUp', 'removeGoal'); 
+					_.bindAll(this, 'render', 'unrender', 'up', 'down', 'swap', 'remove', 'hover', 'leave', 'removeGoalDown', 'removeGoalUp', 'removeGoal'); 
 
-				  this.model.bind('change', this.render);
-				  this.model.bind('remove', this.remove);
-
-				  this.render();
+					this.model.bind('change', this.render);
+					this.model.bind('remove', this.remove);
+					this.render();
+					 
 				},
 
 				render: function(){
@@ -161,7 +169,8 @@
 					+ self.model.get('priority') + ". " 
 					+ self.model.get('title') + ' '
 					+ self.model.get('description') + ' ' 
-					+ self.model.get('progress')
+					+ self.model.get('progress') + '. Index: '
+					+ self.model.get('index')
 					+ "</li>");
 
 					return this; // for chainable calls, like .render().el
@@ -188,11 +197,23 @@
 				down: function(){
 					var newVote = this.model.get('priority') - 1;
 					this.model.set({ priority: newVote });
+					/*var currIndex = this.model.get('index');
+					if (currIndex < this.collection.length - 1) {
+						this.model.swap(this.collection.at(currIndex + 1));
+					}*/
+					this.collection.sort();
+					this.render();
 				},
 
 				up: function(){
 				 	var newVote = this.model.get('priority') + 1;
 					this.model.set({ priority: newVote });
+					/*var currIndex = this.model.get('index');
+					if (currIndex > 0) {
+						this.model.swap(this.collection.at(currIndex - 1));
+					}*/
+					this.collection.sort();
+					this.render();
 				},
 				
 				// `swap()` will interchange an `Item`'s attributes. When the `.set()` model function is called, the event `change` will be triggered.
@@ -203,24 +224,29 @@
 					var oProgress = other.get('progress');
 					var oTotal = other.get('total');
 					var oPriority = other.get('priority');
+					var oIndex = other.get('index');
 					
-					other.set({
-						color: self.model.get('color'),
-						title: self.model.get('title'),
-						description: self.model.get('description'),
-						progress: self.model.get('progress'),
-						total: self.model.get('total'),
-						priority: self.model.get('priority')
-					});
-					
-					self.model.set({
-						color: oColor,
-						title: oTitle,
-						description: oDescription,
-						progress: oProgress,
-						total: oTotal,
-						priority: oPriority,
-					});
+					if (self.model.get('priority') > oPriority) {
+						other.set({
+							color: self.model.get('color'),
+							title: self.model.get('title'),
+							description: self.model.get('description'),
+							progress: self.model.get('progress'),
+							total: self.model.get('total'),
+							priority: self.model.get('priority'),
+							index: self.model.get('index')
+						});
+						
+						self.model.set({
+							color: oColor,
+							title: oTitle,
+							description: oDescription,
+							progress: oProgress,
+							total: oTotal,
+							priority: oPriority,
+							index: oIndex
+						});
+					}
 				},
 				
 				// `remove()`: We use the method `destroy()` to remove a model from its collection. Normally this would also delete the record from its persistent storage, but we have overridden that (see above).
@@ -291,6 +317,7 @@
 				  'keypress #cmd-input': 'cmdInput',
 				},
 				initialize: function(){
+					
 					_.bindAll(this, 'render', 'switchMode'); // every function that uses 'this' as the current object should be in here
 					this.mode = 'goal';
 
@@ -299,7 +326,6 @@
 					this.datesets = new DatesetView({ model: new Dateset });
 					this.cards = new CardView({ model: new Card });
 					this.render();
-
 					$('#cmd-input').focus();
 				},
 				render: function(){
