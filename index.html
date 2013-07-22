@@ -186,11 +186,13 @@
 				unrender: function(){},
 
 				down: function(){
-					//KEN, put your fantastic reddit code here
+					var newVote = this.model.get('priority') - 1;
+					this.model.set({ priority: newVote });
 				},
 
 				up: function(){
-				 	//KEN, put your fantastic reddit code here
+				 	var newVote = this.model.get('priority') + 1;
+					this.model.set({ priority: newVote });
 				},
 				
 				// `swap()` will interchange an `Item`'s attributes. When the `.set()` model function is called, the event `change` will be triggered.
