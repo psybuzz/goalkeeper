@@ -79,10 +79,16 @@
 			//Collections
 			var GoalList = Backbone.Collection.extend({ 
 				model: Goal,
+				sortAttribute: 'priority',
 				initialize: function(){},
 				//should help sort based on priority, called by collection.sort()
 				comparator: function(goal) {
 					return goal.get('priority');
+				},
+				//sorts the list of goals based off of the given attribute
+				sortGoals: function(attr) {
+					this.sortAttribute = attr;
+					this.sort();
 				}
 			});
 			var DatesetList = Backbone.Collection.extend({ model: Dateset });
@@ -111,7 +117,7 @@
 
 					_(this.collection.models).each(function(item){ self.appendItem(item); }, this);
 					$(this.container).append("<ol id='goalList'></ol>");
-
+					
 					return this; // for chainable calls, like .render().el
 				},
 
@@ -127,6 +133,12 @@
 				addGoal: function(newGoal){
 					var goalView = new GoalView({ model: newGoal });
 					$('ol', this.el).append(goalView.render().el);
+				},
+				
+				//should rerender the goals after sorting
+				updateGoals: function() {
+					var ref = this.collection, $el;
+					
 				},
 				
 				unrender: function(){},
@@ -155,7 +167,6 @@
 					this.model.bind('change', this.render);
 					this.model.bind('remove', this.remove);
 					this.render();
-					 
 				},
 
 				render: function(){
@@ -195,25 +206,28 @@
 				unrender: function(){},
 
 				down: function(){
-					var newVote = this.model.get('priority') - 1;
-					this.model.set({ priority: newVote });
-					/*var currIndex = this.model.get('index');
-					if (currIndex < this.collection.length - 1) {
-						this.model.swap(this.collection.at(currIndex + 1));
-					}*/
-					this.collection.sort();
-					this.render();
+					var currPriority = this.model.get('priority');
+					if (currPriority > 0) {
+						var newVote = currPriority - 1;
+						this.model.set({ priority: newVote });
+						/*var currIndex = this.model.get('index');
+						if (currIndex < this.collection.length - 1) 
+							this.model.swap(this.collection.at(currIndex + 1));
+						*/	
+						this.collection.sortGoals('priority');
+						if (newVote == 0)
+							this.model.removeGoalDown();
+					}
 				},
 
 				up: function(){
 				 	var newVote = this.model.get('priority') + 1;
 					this.model.set({ priority: newVote });
 					/*var currIndex = this.model.get('index');
-					if (currIndex > 0) {
+					if (currIndex > 0)
 						this.model.swap(this.collection.at(currIndex - 1));
-					}*/
-					this.collection.sort();
-					this.render();
+					*/	
+					this.collection.sortGoals('priority');
 				},
 				
 				// `swap()` will interchange an `Item`'s attributes. When the `.set()` model function is called, the event `change` will be triggered.
@@ -226,15 +240,15 @@
 					var oPriority = other.get('priority');
 					var oIndex = other.get('index');
 					
-					if (self.model.get('priority') > oPriority) {
+					//if (this.model.get('priority') > oPriority) {
 						other.set({
-							color: self.model.get('color'),
-							title: self.model.get('title'),
-							description: self.model.get('description'),
-							progress: self.model.get('progress'),
-							total: self.model.get('total'),
-							priority: self.model.get('priority'),
-							index: self.model.get('index')
+							color: this.model.get('color'),
+							title: this.model.get('title'),
+							description: this.model.get('description'),
+							progress: this.model.get('progress'),
+							total: this.model.get('total'),
+							priority: this.model.get('priority'),
+							index: this.model.get('index')
 						});
 						
 						self.model.set({
@@ -246,7 +260,7 @@
 							priority: oPriority,
 							index: oIndex
 						});
-					}
+					//}
 				},
 				
 				// `remove()`: We use the method `destroy()` to remove a model from its collection. Normally this would also delete the record from its persistent storage, but we have overridden that (see above).
