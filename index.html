@@ -111,7 +111,7 @@
 					var goal = new Goal();
 					goal.set({
 						progress: Math.floor(Math.random()*100),
-						priority: this.collection.length + 1 //right now just have the priority be listed in order of creation
+						priority: this.collection.length + 1 //right now just have the priority be listed in order of creation. hmmm ok...
 					});
 					this.collection.add(goal);
 				},
@@ -138,14 +138,16 @@
 				  'mousedown .removeGoalBtn': 'removeGoalDown',
 				  'mouseup .removeGoalBtn': 'removeGoalUp',
 				  'click .removeGoalBtn': 'removeGoal',
+				  'click .upVoteBtn': 'up',
+				  'click .downVoteBtn': 'down',
 				},
 
 				initialize: function(){
-				  _.bindAll(this, 'render', 'unrender', 'up', 'down', 'remove'); // every function that uses 'this' as the current object should be in here
+					// every function that uses 'this' as the current object should be in here
+				  _.bindAll(this, 'render', 'unrender', 'up', 'down', 'remove', 'hover', 'leave', 'removeGoalDown', 'removeGoalUp', 'removeGoal'); 
 
 				  this.model.bind('change', this.render);
 				  this.model.bind('remove', this.remove);
-				  this.model.bind('down', this.down);
 
 				  this.render();
 				},
@@ -156,6 +158,8 @@
 					$(this.el).html("<div class='goal-label' style='background-color:" 
 					+ self.model.get('color') + "'>" 
 					+ "<div class='removeGoalBtn'><i class='icon-remove icon-white'></i></div>"
+					+ "<div class='upVoteBtn'><i class='icon-chevron-up'></i></div>"
+					+ "<div class='downVoteBtn'><i class='icon-chevron-down'></i></div>"
 					+ self.model.get('priority') + ". " 
 					+ self.model.get('title') + ' '
 					+ self.model.get('description') + ' ' 
@@ -166,10 +170,10 @@
 				},
 
 				hover: function(){
-					$('.removeGoalBtn', this.el).show();
+					$('.removeGoalBtn, .upVoteBtn, .downVoteBtn', this.el).show();
 				},
 				leave: function(){
-					$('.removeGoalBtn', this.el).hide();
+					$('.removeGoalBtn, .upVoteBtn, .downVoteBtn', this.el).hide();
 				},
 				removeGoalDown: function () {
 					$('.icon-remove', this.el).removeClass('icon-white');	
@@ -184,22 +188,12 @@
 				unrender: function(){},
 
 				down: function(){
-					var swapped = {
-						//part1: this.model.get('part2'),
-						//part2: this.model.get('part1')
-						part3: this.model.get('part3')-1
-					  };
-					  this.model.set(swapped);
+					//KEN, put your fantastic reddit code here
 				},
 
 				// `swap()` will interchange an `Item`'s attributes. When the `.set()` model function is called, the event `change` will be triggered.
 				up: function(){
-				  var swapped = {
-					//part1: this.model.get('part2'),
-					//part2: this.model.get('part1')
-					part3: this.model.get('part3')+1
-				  };
-				  this.model.set(swapped);
+				 	//KEN, put your fantastic reddit code here
 				},
 				// `remove()`: We use the method `destroy()` to remove a model from its collection. Normally this would also delete the record from its persistent storage, but we have overridden that (see above).
 				remove: function(){
