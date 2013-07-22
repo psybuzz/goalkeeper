@@ -102,7 +102,7 @@
 					var self = this;
 
 					_(this.collection.models).each(function(item){ self.appendItem(item); }, this);
-					$(this.container).append("<ul></ul>");
+					$(this.container).append("<ol id='goalList'></ol>");
 
 					return this; // for chainable calls, like .render().el
 				},
@@ -118,12 +118,10 @@
 
 				addGoal: function(newGoal){
 					var goalView = new GoalView({ model: newGoal });
-					$('ul', this.el).append(goalView.render().el);
+					$('ol', this.el).append(goalView.render().el);
 				},
 				
-				unrender: function(){
-					
-				},
+				unrender: function(){},
 
 			  });
 			  
@@ -155,7 +153,7 @@
 				render: function(){
 					var self = this;
 
-					$(this.el).html("<div class='goal-label' style='background-color:" 
+					$(this.el).html("<li class='goal-label' style='background-color:" 
 					+ self.model.get('color') + "'>" 
 					+ "<div class='removeGoalBtn'><i class='icon-remove icon-white'></i></div>"
 					+ "<div class='upVoteBtn'><i class='icon-chevron-up'></i></div>"
@@ -164,7 +162,7 @@
 					+ self.model.get('title') + ' '
 					+ self.model.get('description') + ' ' 
 					+ self.model.get('progress')
-					+ "</div>");
+					+ "</li>");
 
 					return this; // for chainable calls, like .render().el
 				},
