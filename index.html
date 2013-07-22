@@ -135,6 +135,9 @@
 				  'click span.down': 'down',
 				  'mouseover': 'hover',
 				  'mouseout': 'leave',
+				  'mousedown .removeGoalBtn': 'removeGoalDown',
+				  'mouseup .removeGoalBtn': 'removeGoalUp',
+				  'click .removeGoalBtn': 'removeGoal',
 				},
 
 				initialize: function(){
@@ -150,22 +153,32 @@
 				render: function(){
 					var self = this;
 
-					$(this.el).html("<div class='goal-label' contentEditable='true' style='background-color:" 
+					$(this.el).html("<div class='goal-label' style='background-color:" 
 					+ self.model.get('color') + "'>" 
+					+ "<div class='removeGoalBtn'><i class='icon-remove icon-white'></i></div>"
 					+ self.model.get('priority') + ". " 
 					+ self.model.get('title') + ' '
 					+ self.model.get('description') + ' ' 
 					+ self.model.get('progress')
-					+"</div>");
+					+ "</div>");
 
 					return this; // for chainable calls, like .render().el
 				},
 
 				hover: function(){
-
+					$('.removeGoalBtn', this.el).show();
 				},
 				leave: function(){
-
+					$('.removeGoalBtn', this.el).hide();
+				},
+				removeGoalDown: function () {
+					$('.icon-remove', this.el).removeClass('icon-white');	
+				},
+				removeGoalUp: function () {
+					$('.icon-remove', this.el).addClass('icon-white');
+				},
+				removeGoal: function () {
+					this.remove();
 				},
 				
 				unrender: function(){},

@@ -59,8 +59,8 @@
 	position:fixed;
 	top:25%;
 }
-#removeGoalBtn{
-	
+.removeGoalBtn{
+	display:none;
 }
 
 #rightpane{
