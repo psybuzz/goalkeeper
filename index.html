@@ -142,7 +142,7 @@
 
 				initialize: function(){
 					// every function that uses 'this' as the current object should be in here
-				  _.bindAll(this, 'render', 'unrender', 'up', 'down', 'remove', 'hover', 'leave', 'removeGoalDown', 'removeGoalUp', 'removeGoal'); 
+				  _.bindAll(this, 'render', 'unrender', 'up', 'down', 'swap', 'remove', 'hover', 'leave', 'removeGoalDown', 'removeGoalUp', 'removeGoal'); 
 
 				  this.model.bind('change', this.render);
 				  this.model.bind('remove', this.remove);
@@ -203,21 +203,21 @@
 					var oPriority = other.get('priority');
 					
 					other.set({
-						color: self.model.get('color');
-						title: self.model.get('title');
-						description: self.model.get('description');
-						progress: self.model.get('progress');
-						total: self.model.get('total');
-						priority: self.model.get('priority');
+						color: self.model.get('color'),
+						title: self.model.get('title'),
+						description: self.model.get('description'),
+						progress: self.model.get('progress'),
+						total: self.model.get('total'),
+						priority: self.model.get('priority')
 					});
 					
 					self.model.set({
-						color: oColor;
-						title: oTitle;
-						description: oDescription;
-						progress: oProgress;
-						total: oTotal;
-						priority: oPriority;
+						color: oColor,
+						title: oTitle,
+						description: oDescription,
+						progress: oProgress,
+						total: oTotal,
+						priority: oPriority,
 					});
 				},
 				
