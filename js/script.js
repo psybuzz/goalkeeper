@@ -1,9 +1,9 @@
 $(document).ready(function() {
 	$('#rlBtn').click(function() {
-		$('#login-overlay').show();
+		$('#login-overlay').fadeIn('fast');
 	});
 	
 	$('.cover').click(function() {
-		$('#login-overlay').hide();
+		$('#login-overlay').fadeOut('fast');
 	});
 });

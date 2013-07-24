@@ -6,7 +6,7 @@
 	* The registration script for the website. It checks for valid email, username, and password, then stores it
 	* into our database.
 	*/
-	if (isset($_POST["submit")) {
+	if (isset($_POST["registersubmit")) {
 		$error = array(); //an array of possible errors for each entry
 		
 		/*$email = $_POST["email"];
