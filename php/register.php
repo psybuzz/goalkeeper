@@ -51,7 +51,7 @@
 			$error[] = "Your password must contain valid characters and be 6-30 characters long.";
 		} else {
 			//check if the password matches the re-entered password
-			if ($password != $vpass) {
+			if ($_POST["password"] != $_POST["password2"]) {
 				$error[] = "The passwords you provided do not match.";
 			} else {
 				$password = $_POST["password"];
