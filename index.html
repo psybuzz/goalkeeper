@@ -4,6 +4,7 @@
 		<script src="js/bootstrap.min.js"></script>
 		<script src="js/underscore-1.5.1.js"></script>
 		<script src="js/backbone-min.js"></script>
+		<script src="js/script.js"></script>
 
 		<link rel="stylesheet" href="css/bootstrap.min.css">
 		<link href='css/google-fonts.css' rel='stylesheet' type='text/css'>
@@ -30,30 +31,39 @@
 
 		<button class='btn btn-info' id='switchBtn'>switch</button>
 		
-		<div id="sessionpane">
-			<div id="loginpane">
-				<h3>Login</h3>
-				<form action="" method="post">
-					<table>
-						<tr>
-							<td>Username <input type="text" name="loginname"></td>
-							<td>Password <input type="password" name="loginpass"></td>
-							<td><input type="submit" name="loginsubmit"></td>
-						</tr>
-					</table>
-				</form>
-			</div>
-			<div id="registerpane">
-				<h3>Register</h3>
-				<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post"><!--Todo: add script to access registration script--->
-					<table>
-						<tr><td>Email</td><td><input type="text" name="email"></td></tr>
-						<tr><td>Username</td><td><input type="text" name="username"></td></tr>
-						<tr><td>Password</td><td><input type="password" name="password"></td></tr>
-						<tr><td>Re-enter Password</td><td><input type="password" name="password2"</td></tr>
-						<tr><td><input type="submit" name="registersubmit"></td></tr>
-					</table>
-				</form>
+		<button class="btn btn-info" id="rlBtn">Login or Register</button>
+		<div id="login-overlay">
+			<div class="cover"></div>
+			
+			<div class="pop-up">
+				<div id="loginpane">
+					<h3>Login</h3>
+					<form action="" method="post">
+						<table>
+							<tr>
+								<tr><td>Username</td><td><input type="text" name="loginname"></td></tr>
+								<tr><td>Password</td><td><input type="password" name="loginpass"></td></tr>
+								<td><input type="submit" name="loginsubmit"></td>
+							</tr>
+						</table>
+					</form>
+				</div>
+				<div id="registerpane">
+					<h3>Register</h3>
+					<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post"><!--Todo: add script to access registration script--->
+						<table>
+							<tr><td>Email</td><td><input type="text" name="email"></td></tr>
+							<tr><td>Username</td><td><input type="text" name="username"></td></tr>
+							<tr><td>Password</td><td><input type="password" name="password"></td></tr>
+							<tr><td>Re-enter Password</td><td><input type="password" name="password2"</td></tr>
+							<table><tr>
+								<td><input type="checkbox" name="terms-policy" id="t-p checkbox" value="agree"></td>
+								<td><label for="t-p checkbox" style="padding-left: 5px;">Do you agree to our non-existent terms and policies?</label></td>
+							</tr></table>
+							<tr><td><input type="submit" name="registersubmit"></td></tr>
+						</table>
+					</form>
+				</div>
 			</div>
 		</div>
 		
