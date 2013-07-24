@@ -1,5 +1,5 @@
 <?php
-	include("connect.php");
+	require_once("connect.php");
 	include("functions.php");
 	
 	/**
@@ -60,10 +60,23 @@
 		
 		//if there aren't any errors, go ahead and store the information in the database
 		if (empty($error)) {
-			$encrypt = md5(uniqid(rand(), true));
-			$query = "INSERT INTO users (username, email, password, active) VALUES ($username, $email, SHA($password), $encrypt)"
+			$encrypt = md5(uniqid(rand(), true)); //does an md5 hash key encryption
+			$query = "INSERT INTO users (username, email, password, active) VALUES ('$username', '$email', SHA('$password'), $'encrypt')";
 			
+			$result = mysqli_query($query);
 			
+			if (mysqli_affected_rows() == 1) {
+				echo "<h3>Thank You!</h3> You have been registered!";
+			} else {
+				echo "You were not registered. Please contact us about the problem, and we'll try to fix it as soon as possible.";
+			}
+		}
+		else {
+			echo "Error! The following error(s) have occurred.: <br />";
+				
+			foreach ($error as $msg) {
+				echo "$msg<br />\n"
+			}
 		}
 	}
 ?>

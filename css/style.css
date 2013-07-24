@@ -150,3 +150,7 @@
 	bottom:-5px;
 	left:25%;
 }
+
+#loginpane {
+	display: none;
+}
