@@ -315,10 +315,13 @@
 				cmdInput: function(e){
 					if (e.keyCode == 13){
 						var text = $('#cmd-input').val();
+						var lower = text.toLowerCase();
 						$('#cmd-input').val('');
 
 						var days = ['sunday','monday','tuesday','wednesday','thursday','friday','saturday'];
-						var day = days[ (new Date).getDay() ];
+						var date = new Date();
+						var day = days[ date.getDay() ];
+						var ampm = date.getHours > 12 ? 'PM' : 'AM';
 
 						if (this.lastDay != day){
 							this.lastDay = day;
@@ -326,10 +329,28 @@
 						}
 
 						
-						if (isNaN(text))
+
+						if (isNaN(text) == false) {		//if it is numeric
+							$(this.terminal).append( "<div class='card-div-big'><span class='card-number'>" + text + "</span></div>" );
+						} else if (lower == "time") {
+							$(this.terminal).append( "<div class='card-div-big'><span class='card-time'>" 
+								+ date.toLocaleTimeString().substring(0, 5) + " "
+								+ ampm
+								+ "</span><br><br>"
+								+ "<span style='font-size:15px; color:grey; margin-left:15px'>" + date.toDateString() + "</span></div>" );
+						} else if (lower == "day") {
+							$(this.terminal).append( "<div class='card-div-big'><span class='card-time'>" 
+								+ day
+								+ "</span><br><br>"
+								+ "<span style='font-size:15px; color:grey; margin-left:15px'>" + date.toDateString() + "</span></div>" );
+						} else if (lower == "date") {
+							$(this.terminal).append( "<div class='card-div-big'><span class='card-date'>" 
+								+ date.toDateString().substring(4)
+								+ "</span></div>" );
+						} else {
 							$(this.terminal).append( "<div class='card-div'><span class='card'>" + text + "</span></div>" );
-						else
-							$(this.terminal).append( "<div class='card-div-num'><span class='card-number'>" + text + "</span></div>" );
+						}
+							
 
 						//scroll
 						$("html, body").animate({ scrollTop: $(document).height() }, "fast");
