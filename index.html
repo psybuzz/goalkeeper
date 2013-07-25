@@ -4,6 +4,7 @@
 		<script src="js/bootstrap.min.js"></script>
 		<script src="js/underscore-1.5.1.js"></script>
 		<script src="js/backbone-min.js"></script>
+		<script src="js/script.js"></script>
 
 		<link rel="stylesheet" href="css/bootstrap.min.css">
 		<link href='css/google-fonts.css' rel='stylesheet' type='text/css'>
@@ -30,6 +31,45 @@
 
 		<button class='btn btn-info' id='switchBtn'>switch</button>
 		
+		<button class="btn btn-info" id="rlBtn">Login or Register</button>
+		
+		<!---The overlay that pops up when you click the login/register button--->
+		<div id="login-overlay">
+			<div class="cover"></div>
+			
+			<div class="pop-up">
+				<div id="loginpane">
+					<h3>Login</h3>
+					<form action="" method="post"><!---Todo: add login script--->
+						<table>
+							<tr>
+								<tr><td>Username</td><td><input type="text" name="loginname"></td></tr>
+								<tr><td>Password</td><td><input type="password" name="loginpass"></td></tr>
+								<td><input type="submit" name="loginsubmit"></td>
+							</tr>
+						</table>
+					</form>
+				</div>
+				<!---need to add some kind of divider--->
+				<div id="registerpane">
+					<h3>Register</h3>
+					<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+						<table>
+							<tr><td>Email</td><td><input type="text" name="email"></td></tr>
+							<tr><td>Username</td><td><input type="text" name="username"></td></tr>
+							<tr><td>Password</td><td><input type="password" name="password"></td></tr>
+							<tr><td>Re-enter Password</td><td><input type="password" name="password2"</td></tr>
+							<table><tr>
+								<td><input type="checkbox" name="terms-policy" id="t-p checkbox" value="agree"></td>
+								<td><label for="t-p checkbox" style="padding-left: 5px; font-size: 13px;">Do you agree to our non-existent terms and policies?</label></td>
+							</tr></table>
+							<tr><td><input type="submit" name="registersubmit" value="registersubmit"></td></tr>
+						</table>
+					</form>
+				</div>
+			</div>
+		</div>
+		
 		<script>
 		(function($){
 			//global namespace
@@ -43,11 +83,12 @@
 					progess: 0,
 					total: 100,
 					priority: 0,
+					index: -1
 				},
 
 				initialize: function(){
 					this.set({
-						color: 'rgb('+Math.floor(128*Math.random()+127)+','+Math.floor(128*Math.random()+127)+','+Math.floor(128*Math.random()+127)+')'
+						color: 'rgb('+Math.floor(128*Math.random()+127)+','+Math.floor(128*Math.random()+127)+','+Math.floor(128*Math.random()+127)+')',
 					})
 				}
 			});
@@ -76,7 +117,20 @@
 			});
 
 			//Collections
-			var GoalList = Backbone.Collection.extend({ model: Goal });
+			var GoalList = Backbone.Collection.extend({ 
+				model: Goal,
+				sortAttribute: 'priority',
+				initialize: function(){},
+				//should help sort based on priority, called by collection.sort()
+				comparator: function(goal) {
+					return goal.get('priority');
+				},
+				//sorts the list of goals based off of the given attribute
+				sortGoals: function(attr) {
+					this.sortAttribute = attr;
+					this.sort();
+				}
+			});
 			var DatesetList = Backbone.Collection.extend({ model: Dateset });
 			var CardList = Backbone.Collection.extend({ model: Card });
 
@@ -103,7 +157,7 @@
 
 					_(this.collection.models).each(function(item){ self.appendItem(item); }, this);
 					$(this.container).append("<ol id='goalList'></ol>");
-
+					
 					return this; // for chainable calls, like .render().el
 				},
 
@@ -111,7 +165,7 @@
 					var goal = new Goal();
 					goal.set({
 						progress: Math.floor(Math.random()*100),
-						priority: this.collection.length + 1 //right now just have the priority be listed in order of creation. hmmm ok...
+						index: this.collection.length
 					});
 					this.collection.add(goal);
 				},
@@ -119,6 +173,12 @@
 				addGoal: function(newGoal){
 					var goalView = new GoalView({ model: newGoal });
 					$('ol', this.el).append(goalView.render().el);
+				},
+				
+				//should rerender the goals after sorting
+				updateGoals: function() {
+					var ref = this.collection, $el;
+					
 				},
 				
 				unrender: function(){},
@@ -142,12 +202,11 @@
 
 				initialize: function(){
 					// every function that uses 'this' as the current object should be in here
-				  _.bindAll(this, 'render', 'unrender', 'up', 'down', 'swap', 'remove', 'hover', 'leave', 'removeGoalDown', 'removeGoalUp', 'removeGoal'); 
+					_.bindAll(this, 'render', 'unrender', 'up', 'down', 'swap', 'remove', 'hover', 'leave', 'removeGoalDown', 'removeGoalUp', 'removeGoal'); 
 
-				  this.model.bind('change', this.render);
-				  this.model.bind('remove', this.remove);
-
-				  this.render();
+					this.model.bind('change', this.render);
+					this.model.bind('remove', this.remove);
+					this.render();
 				},
 
 				render: function(){
@@ -161,7 +220,8 @@
 					+ self.model.get('priority') + ". " 
 					+ self.model.get('title') + ' '
 					+ self.model.get('description') + ' ' 
-					+ self.model.get('progress')
+					+ self.model.get('progress') + '. Index: '
+					+ self.model.get('index')
 					+ "</li>");
 
 					return this; // for chainable calls, like .render().el
@@ -186,13 +246,28 @@
 				unrender: function(){},
 
 				down: function(){
-					var newVote = this.model.get('priority') - 1;
-					this.model.set({ priority: newVote });
+					var currPriority = this.model.get('priority');
+					if (currPriority > 0) {
+						var newVote = currPriority - 1;
+						this.model.set({ priority: newVote });
+						/*var currIndex = this.model.get('index');
+						if (currIndex < this.collection.length - 1) 
+							this.model.swap(this.collection.at(currIndex + 1));
+						*/	
+						this.collection.sortGoals('priority');
+						if (newVote == 0)
+							this.model.removeGoalDown();
+					}
 				},
 
 				up: function(){
 				 	var newVote = this.model.get('priority') + 1;
 					this.model.set({ priority: newVote });
+					/*var currIndex = this.model.get('index');
+					if (currIndex > 0)
+						this.model.swap(this.collection.at(currIndex - 1));
+					*/	
+					this.collection.sortGoals('priority');
 				},
 				
 				// `swap()` will interchange an `Item`'s attributes. When the `.set()` model function is called, the event `change` will be triggered.
@@ -203,24 +278,29 @@
 					var oProgress = other.get('progress');
 					var oTotal = other.get('total');
 					var oPriority = other.get('priority');
+					var oIndex = other.get('index');
 					
-					other.set({
-						color: self.model.get('color'),
-						title: self.model.get('title'),
-						description: self.model.get('description'),
-						progress: self.model.get('progress'),
-						total: self.model.get('total'),
-						priority: self.model.get('priority')
-					});
-					
-					self.model.set({
-						color: oColor,
-						title: oTitle,
-						description: oDescription,
-						progress: oProgress,
-						total: oTotal,
-						priority: oPriority,
-					});
+					//if (this.model.get('priority') > oPriority) {
+						other.set({
+							color: this.model.get('color'),
+							title: this.model.get('title'),
+							description: this.model.get('description'),
+							progress: this.model.get('progress'),
+							total: this.model.get('total'),
+							priority: this.model.get('priority'),
+							index: this.model.get('index')
+						});
+						
+						self.model.set({
+							color: oColor,
+							title: oTitle,
+							description: oDescription,
+							progress: oProgress,
+							total: oTotal,
+							priority: oPriority,
+							index: oIndex
+						});
+					//}
 				},
 				
 				// `remove()`: We use the method `destroy()` to remove a model from its collection. Normally this would also delete the record from its persistent storage, but we have overridden that (see above).
@@ -291,6 +371,7 @@
 				  'keypress #cmd-input': 'cmdInput',
 				},
 				initialize: function(){
+					
 					_.bindAll(this, 'render', 'switchMode'); // every function that uses 'this' as the current object should be in here
 					this.mode = 'goal';
 
@@ -299,7 +380,6 @@
 					this.datesets = new DatesetView({ model: new Dateset });
 					this.cards = new CardView({ model: new Card });
 					this.render();
-
 					$('#cmd-input').focus();
 				},
 				render: function(){

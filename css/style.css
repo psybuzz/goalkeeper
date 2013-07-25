@@ -163,3 +163,48 @@
 	bottom:-5px;
 	left:25%;
 }
+
+#login-overlay {
+	display: none;
+}
+
+#loginpane {
+	
+}
+
+#rlBtn {
+	position: fixed;
+	top: 20px;
+	right: 20px;
+}
+
+.cover {
+	background-color: gray;
+	opacity: .7;
+	z-index: 1000;
+	height: 100%;
+	width: 100%;
+	position: fixed;
+	top: 0px;
+	left: 0px;
+}
+
+.pop-up {
+	background-color: white;
+	z-index: 1001;
+	position: absolute;
+	margin-top: 10px;
+	width: 50%;
+	left: 25%;
+	top: 10%;
+	padding: 40px;
+	text-align: left;
+	border-radius: 30px;
+	box-shadow: 0 10px 20px rgba(0, 0, 0, .4);
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: moz-none;
+	-ms-user-select: none;
+	user-select: none;
+}
