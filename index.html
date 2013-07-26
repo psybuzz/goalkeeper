@@ -1,11 +1,5 @@
 <html>
 	<head>
-		<script src="js/jquery-1.10.2.js"></script>
-		<script src="js/bootstrap.min.js"></script>
-		<script src="js/underscore-1.5.1.js"></script>
-		<script src="js/backbone-min.js"></script>
-		<script src="js/script.js"></script>
-
 		<link rel="stylesheet" href="css/bootstrap.min.css">
 		<link href='css/google-fonts.css' rel='stylesheet' type='text/css'>
 		<link href='css/style.css' rel='stylesheet' type='text/css'>
@@ -33,14 +27,14 @@
 		
 		<button class="btn btn-info" id="rlBtn">Login or Register</button>
 		
-		<!---The overlay that pops up when you click the login/register button--->
+		<!--The overlay that pops up when you click the login/register button-->
 		<div id="login-overlay">
 			<div class="cover"></div>
 			
 			<div class="pop-up">
 				<div id="loginpane">
 					<h3>Login</h3>
-					<form action="" method="post"><!---Todo: add login script--->
+					<form action="" method="post"><!--Todo: add login script-->
 						<table>
 							<tr>
 								<tr><td>Username</td><td><input type="text" name="loginname"></td></tr>
@@ -50,7 +44,7 @@
 						</table>
 					</form>
 				</div>
-				<!---need to add some kind of divider--->
+				<!--need to add some kind of divider-->
 				<div id="registerpane">
 					<h3>Register</h3>
 					<form action="php/register.php" method="post">
@@ -69,379 +63,18 @@
 				</div>
 			</div>
 		</div>
-		
-		<script>
-		(function($){
-			//global namespace
-			app = {};
 
-			//Models: Goal, Heading, Dateset, Card
-			var Goal = Backbone.Model.extend({
-				defaults: {
-					title: 'stop being sad.',
-					description: ' start being awesome.',
-					progess: 0,
-					total: 100,
-					priority: 0,
-					index: -1
-				},
+		<script src="js/jquery-1.10.2.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="js/underscore-1.5.1.js"></script>
+		<script src="js/backbone-min.js"></script>
 
-				initialize: function(){
-					this.set({
-						color: 'rgb('+Math.floor(128*Math.random()+127)+','+Math.floor(128*Math.random()+127)+','+Math.floor(128*Math.random()+127)+')',
-					})
-				}
-			});
-			
-			var Heading = Backbone.Model.extend({
-				defaults: {
-					visibility: 'private',
-					forehead: 'carpe diem motto',
-					backhead: 'life set',
-					message: 'started 3 years ago<br>some awesome goals to strive for'
-				}
-			});
-			
-			var Dateset = Backbone.Model.extend({
-				defaults: {
-					date: (new Date()),
-					dateName: 'today',
-					cards: [],
-				}
-			});
-			
-			var Card = Backbone.Model.extend({
-				defaults: {
-					text: 'ipsum lorem',
-				}
-			});
-
-			//Collections
-			var GoalList = Backbone.Collection.extend({ 
-				model: Goal,
-				sortAttribute: 'priority',
-				initialize: function(){},
-				//should help sort based on priority, called by collection.sort()
-				comparator: function(goal) {
-					return goal.get('priority');
-				},
-				//sorts the list of goals based off of the given attribute
-				sortGoals: function(attr) {
-					this.sortAttribute = attr;
-					this.sort();
-				}
-			});
-			var DatesetList = Backbone.Collection.extend({ model: Dateset });
-			var CardList = Backbone.Collection.extend({ model: Card });
-
-			//Views for GoalList, Goal, Heading, Dateset, Card
-			//GoalListView
-			var GoalListView = Backbone.View.extend({
-				el: '#leftpane',
-				container: '#goalContainer',
-				events: {
-				  'click #createGoalBtn': 'createGoal'
-				},
-
-				initialize: function(){
-				  _.bindAll(this, 'render', 'unrender', 'createGoal', 'addGoal'); // every function that uses 'this' as the current object should be in here
-
-				  this.collection = new GoalList();
-				  this.collection.bind('add', this.addGoal);
-
-				  this.render();
-				},
-
-				render: function(){
-					var self = this;
-
-					_(this.collection.models).each(function(item){ self.appendItem(item); }, this);
-					$(this.container).append("<ol id='goalList'></ol>");
-					
-					return this; // for chainable calls, like .render().el
-				},
-
-				createGoal: function(){
-					var goal = new Goal();
-					goal.set({
-						progress: Math.floor(Math.random()*100),
-						index: this.collection.length
-					});
-					this.collection.add(goal);
-				},
-
-				addGoal: function(newGoal){
-					var goalView = new GoalView({ model: newGoal });
-					$('ol', this.el).append(goalView.render().el);
-				},
-				
-				//should rerender the goals after sorting
-				updateGoals: function() {
-					var ref = this.collection, $el;
-					
-				},
-				
-				unrender: function(){},
-
-			  });
-			  
-			//GoalView
-			var GoalView = Backbone.View.extend({
-				events: {
-				  'click span.up':  'up',
-				  'click span.delete': 'remove',
-				  'click span.down': 'down',
-				  'mouseover': 'hover',
-				  'mouseout': 'leave',
-				  'mousedown .removeGoalBtn': 'removeGoalDown',
-				  'mouseup .removeGoalBtn': 'removeGoalUp',
-				  'click .removeGoalBtn': 'removeGoal',
-				  'click .upVoteBtn': 'up',
-				  'click .downVoteBtn': 'down',
-				},
-
-				initialize: function(){
-					// every function that uses 'this' as the current object should be in here
-					_.bindAll(this, 'render', 'unrender', 'up', 'down', 'swap', 'remove', 'hover', 'leave', 'removeGoalDown', 'removeGoalUp', 'removeGoal'); 
-
-					this.model.bind('change', this.render);
-					this.model.bind('remove', this.remove);
-					this.render();
-				},
-
-				render: function(){
-					var self = this;
-
-					$(this.el).html("<li class='goal-label' style='background-color:" 
-					+ self.model.get('color') + "'>" 
-					+ "<div class='removeGoalBtn'><i class='icon-remove icon-white'></i></div>"
-					+ "<div class='upVoteBtn'><i class='icon-chevron-up'></i></div>"
-					+ "<div class='downVoteBtn'><i class='icon-chevron-down'></i></div>"
-					+ self.model.get('priority') + ". " 
-					+ self.model.get('title') + ' '
-					+ self.model.get('description') + ' ' 
-					+ self.model.get('progress') + '. Index: '
-					+ self.model.get('index')
-					+ "</li>");
-
-					return this; // for chainable calls, like .render().el
-				},
-
-				hover: function(){
-					$('.removeGoalBtn, .upVoteBtn, .downVoteBtn', this.el).show();
-				},
-				leave: function(){
-					$('.removeGoalBtn, .upVoteBtn, .downVoteBtn', this.el).hide();
-				},
-				removeGoalDown: function () {
-					$('.icon-remove', this.el).removeClass('icon-white');	
-				},
-				removeGoalUp: function () {
-					$('.icon-remove', this.el).addClass('icon-white');
-				},
-				removeGoal: function () {
-					this.remove();
-				},
-				
-				unrender: function(){},
-
-				down: function(){
-					var currPriority = this.model.get('priority');
-					if (currPriority > 0) {
-						var newVote = currPriority - 1;
-						this.model.set({ priority: newVote });
-						/*var currIndex = this.model.get('index');
-						if (currIndex < this.collection.length - 1) 
-							this.model.swap(this.collection.at(currIndex + 1));
-						*/	
-						this.collection.sortGoals('priority');
-						if (newVote == 0)
-							this.model.removeGoalDown();
-					}
-				},
-
-				up: function(){
-				 	var newVote = this.model.get('priority') + 1;
-					this.model.set({ priority: newVote });
-					/*var currIndex = this.model.get('index');
-					if (currIndex > 0)
-						this.model.swap(this.collection.at(currIndex - 1));
-					*/	
-					this.collection.sortGoals('priority');
-				},
-				
-				// `swap()` will interchange an `Item`'s attributes. When the `.set()` model function is called, the event `change` will be triggered.
-				swap: function(other) {
-					var oColor = other.get('color');
-					var oTitle = other.get('title');
-					var oDescription = other.get('description');
-					var oProgress = other.get('progress');
-					var oTotal = other.get('total');
-					var oPriority = other.get('priority');
-					var oIndex = other.get('index');
-					
-					//if (this.model.get('priority') > oPriority) {
-						other.set({
-							color: this.model.get('color'),
-							title: this.model.get('title'),
-							description: this.model.get('description'),
-							progress: this.model.get('progress'),
-							total: this.model.get('total'),
-							priority: this.model.get('priority'),
-							index: this.model.get('index')
-						});
-						
-						self.model.set({
-							color: oColor,
-							title: oTitle,
-							description: oDescription,
-							progress: oProgress,
-							total: oTotal,
-							priority: oPriority,
-							index: oIndex
-						});
-					//}
-				},
-				
-				// `remove()`: We use the method `destroy()` to remove a model from its collection. Normally this would also delete the record from its persistent storage, but we have overridden that (see above).
-				remove: function(){
-				  this.model.destroy();
-				  $(this.el).remove();
-				}
-			  });
-			  
-			//HeadingView
-			var HeadingView = Backbone.View.extend({
-				el: 'header',
-				events: {
-				  'click span': 'zoom'
-				},
-
-				initialize: function(){
-					_.bindAll(this, 'render', 'unrender', 'zoom', 'remove'); // every function that uses 'this' as the current object should be in here
-
-					this.model.bind('change', this.render);
-					this.model.bind('remove', this.remove);
-
-				  //initial heading
-					var heading = new Heading();
-					//$('ul', this.el).append(goalView.render().el);
-					this.render();
-				},
-
-				render: function(){
-					var self = this;
-
-					$(this.el).html("<div class='jumbotron'><h1 id='forehead'>"+self.model.get('forehead') + '</h1>'
-						+ "<h2 id='backhead'>" + self.model.get('backhead') + "</h2>"
-						+ "<div id='message' class='lead'" + self.model.get('message')+"</div></div>");
-
-					return this; // for chainable calls, like .render().el
-				},
-
-				zoom: function(){
-					alert('zoom zoom zoooom');
-				},
-				
-				unrender: function(){},
-
-				// `remove()`: We use the method `destroy()` to remove a model from its collection. Normally this would also delete the record from its persistent storage, but we have overridden that (see above).
-				remove: function(){
-				  this.model.destroy();
-				  $(this.el).remove();
-				}
-			});
-			
-			//DatesetView
-			var DatesetView = Backbone.View.extend({
-
-			});
-			//CardView
-			var CardView = Backbone.View.extend({
-
-			});
-
-			//AppView
-			var AppView = Backbone.View.extend({
-				el: $('body'), // el attaches to existing element
-				terminal: '#bigContainer',
-				lastDay: '',
-				events: {
-				  'click button#switchBtn': 'switchMode',
-				  'keypress #cmd-input': 'cmdInput',
-				},
-				initialize: function(){
-					
-					_.bindAll(this, 'render', 'switchMode'); // every function that uses 'this' as the current object should be in here
-					this.mode = 'goal';
-
-					this.head = new HeadingView({ model: new Heading });
-					this.goalList = new GoalListView({ model: new Goal });
-					this.datesets = new DatesetView({ model: new Dateset });
-					this.cards = new CardView({ model: new Card });
-					this.render();
-					$('#cmd-input').focus();
-				},
-				render: function(){
-					if (this.mode == 'goal'){
-						//left side bigger
-					} else {
-						//right side bigger
-					}
-				},
-				switchMode: function(){
-					this.mode = this.mode == 'goal' ? 'card' : 'goal';
-				},
-				cmdInput: function(e){
-					if (e.keyCode == 13){
-						var text = $('#cmd-input').val();
-						var lower = text.toLowerCase();
-						$('#cmd-input').val('');
-
-						var days = ['sunday','monday','tuesday','wednesday','thursday','friday','saturday'];
-						var date = new Date();
-						var day = days[ date.getDay() ];
-						var ampm = date.getHours > 12 ? 'PM' : 'AM';
-
-						if (this.lastDay != day){
-							this.lastDay = day;
-							$(this.terminal).append( "<div class='date-label'>" + day + "</div>" );
-						}
-
-						
-
-						if (isNaN(text) == false) {		//if it is numeric
-							$(this.terminal).append( "<div class='card-div-big'><span class='card-number'>" + text + "</span></div>" );
-						} else if (lower == "time") {
-							$(this.terminal).append( "<div class='card-div-big'><span class='card-time'>" 
-								+ date.toLocaleTimeString().substring(0, 5) + " "
-								+ ampm
-								+ "</span><br><br>"
-								+ "<span style='font-size:15px; color:grey; margin-left:15px'>" + date.toDateString() + "</span></div>" );
-						} else if (lower == "day") {
-							$(this.terminal).append( "<div class='card-div-big'><span class='card-time'>" 
-								+ day
-								+ "</span><br><br>"
-								+ "<span style='font-size:15px; color:grey; margin-left:15px'>" + date.toDateString() + "</span></div>" );
-						} else if (lower == "date") {
-							$(this.terminal).append( "<div class='card-div-big'><span class='card-date'>" 
-								+ date.toDateString().substring(4)
-								+ "</span></div>" );
-						} else {
-							$(this.terminal).append( "<div class='card-div'><span class='card'>" + text + "</span></div>" );
-						}
-							
-
-						//scroll
-						$("html, body").animate({ scrollTop: $(document).height() }, "fast");
-					}
-				}
-			});
-			
-			//go!
-			app.AppView = new AppView();
-
-		})(jQuery);
-		</script>
+		<script src="js/models/models.js"></script>
+		<script src="js/collections/collections.js"></script>
+		<script src="js/views/appView.js"></script>
+		<script src="js/views/content.js"></script>
+		<script src="js/views/goals.js"></script>
+		<script src="js/views/heading.js"></script>
+		<script src="js/app.js"></script>
 	</body>
 </html>	

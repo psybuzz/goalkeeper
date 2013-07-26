@@ -133,7 +133,6 @@
 }
 
 .card{
-	background-color: white;
 	padding:15px;
 	font-size:14px;
 }
@@ -146,14 +145,12 @@
 }
 
 .card-time{
-	background-color: white;
 	padding:15px 15px 50px 15px;
 	font-size:50px;
 	margin-bottom:50px;
 }
 
 .card-date{
-	background-color: white;
 	padding:15px 15px 15px 15px;
 	font-size:30px;
 }
