@@ -1,12 +1,12 @@
 <?php
-	require_once("connect.php");
+	include("connect.php");
 	include("functions.php");
 	
 	/**
 	* The registration script for the website. It checks for valid email, username, and password, then stores it
 	* into our database.
 	*/
-	if (isset($_POST["registersubmit")) {
+	if (isset($_POST["rsubmit"])) {
 		$error = array(); //an array of possible errors for each entry
 		
 		/*$email = $_POST["email"];
@@ -18,13 +18,13 @@
 		if (!filter_var(stripslashes(trim($_POST["email"])), FILTER_VALIDATE_EMAIL)) {
 			$error[] = "Please provide a valid email address.";
 		} else {
-			$address = mysqli_real_escape_string($_POST["email"]);
+			$address = mysqli_real_escape_string($con, $_POST["email"]);
 			$query = "SELECT COUNT(*) FROM users WHERE email = '$address'"; //MySQL script, gets the number of rows with the same email
-			$num = mysqli_query($query);
+			$num = mysqli_query($con, $query);
 			
 			//if there's an existing row with the same email, then it's already registered
 			if ($num > 0) {
-				$error[] = "The email you have provided has already been used."
+				$error[] = "The email you have provided has already been used.";
 			} else {
 				$email = mysqli_real_escape_string($_POST["email"]); //stores the email in a variable
 			}
@@ -34,15 +34,15 @@
 		if (!valid_user(stripslashes(trim($_POST["username"])))){ 
 			$error[] = "Your username must contain valid characters and 3-15 characters long.";
 		} else {
-			$user = mysqli_real_escape_string($_POST["username"]);
+			$user = mysqli_real_escape_string($con, $_POST["username"]);
 			$query = "SELECT COUNT(*) FROM users WHERE username = '$user'"; //MySQL script, gets the number of rows with the same username
-			$num = mysqli_query($query);
+			$num = mysqli_query($con, $query);
 			
 			//if there's an existing row with the same username, then it's been taken
 			if ($num > 0) {
 				$error[] = "The username you have chosen has already been taken. Please try again.";
 			} else {
-				$username = mysqli_real_escape_string($_POST["username"]);
+				$username = mysqli_real_escape_string($con, $_POST["username"]);
 			}
 		}
 		
@@ -63,7 +63,7 @@
 			$encrypt = md5(uniqid(rand(), true)); //does an md5 hash key encryption
 			$query = "INSERT INTO users (username, email, password, active) VALUES ('$username', '$email', SHA('$password'), $'encrypt')";
 			
-			$result = mysqli_query($query);
+			$result = mysqli_query($con, $query);
 			
 			if (mysqli_affected_rows() == 1) {
 				echo "<h3>Thank You!</h3> You have been registered!";
@@ -75,7 +75,7 @@
 			echo "Error! The following error(s) have occurred.: <br />";
 				
 			foreach ($error as $msg) {
-				echo "$msg<br />\n"
+				echo "$msg<br />\n";
 			}
 		}
 	}

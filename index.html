@@ -53,7 +53,7 @@
 				<!---need to add some kind of divider--->
 				<div id="registerpane">
 					<h3>Register</h3>
-					<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+					<form action="php/register.php" method="post">
 						<table>
 							<tr><td>Email</td><td><input type="text" name="email"></td></tr>
 							<tr><td>Username</td><td><input type="text" name="username"></td></tr>
@@ -63,7 +63,7 @@
 								<td><input type="checkbox" name="terms-policy" id="t-p checkbox" value="agree"></td>
 								<td><label for="t-p checkbox" style="padding-left: 5px; font-size: 13px;">Do you agree to our non-existent terms and policies?</label></td>
 							</tr></table>
-							<tr><td><input type="submit" name="registersubmit" value="registersubmit"></td></tr>
+							<tr><td><input type="submit" name="rsubmit"></td></tr>
 						</table>
 					</form>
 				</div>
