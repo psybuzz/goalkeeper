@@ -19,14 +19,15 @@
 			$error[] = "Please provide a valid email address.";
 		} else {
 			$address = mysqli_real_escape_string($con, $_POST["email"]);
-			$query = "SELECT COUNT(*) FROM users WHERE email = '$address'"; //MySQL script, gets the number of rows with the same email
-			$num = mysqli_query($con, $query);
+			$query = "SELECT email FROM users WHERE email = '$address'"; //MySQL script, gets the number of rows with the same email
+			$result = mysqli_query($con, $query);
+			$num = mysqli_num_rows($result);
 			
 			//if there's an existing row with the same email, then it's already registered
 			if ($num > 0) {
 				$error[] = "The email you have provided has already been used.";
 			} else {
-				$email = mysqli_real_escape_string($_POST["email"]); //stores the email in a variable
+				$email = mysqli_real_escape_string($con, $_POST["email"]); //stores the email in a variable
 			}
 		}
 		
@@ -35,8 +36,9 @@
 			$error[] = "Your username must contain valid characters and 3-15 characters long.";
 		} else {
 			$user = mysqli_real_escape_string($con, $_POST["username"]);
-			$query = "SELECT COUNT(*) FROM users WHERE username = '$user'"; //MySQL script, gets the number of rows with the same username
-			$num = mysqli_query($con, $query);
+			$query = "SELECT username FROM users WHERE username = '$user'"; //MySQL script, gets the number of rows with the same username
+			$result = mysqli_query($con, $query);
+			$num = mysqli_num_rows($result);
 			
 			//if there's an existing row with the same username, then it's been taken
 			if ($num > 0) {
@@ -65,7 +67,7 @@
 			
 			$result = mysqli_query($con, $query);
 			
-			if (mysqli_affected_rows() == 1) {
+			if (mysqli_affected_rows($con) == 1) {
 				echo "<h3>Thank You!</h3> You have been registered!";
 			} else {
 				echo "You were not registered. Please contact us about the problem, and we'll try to fix it as soon as possible.";
