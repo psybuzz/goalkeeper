@@ -6,8 +6,9 @@ var app = app || {};
 	GoalListView = app.GoalListView = Backbone.View.extend({
 		el: '#leftpane',
 		container: '#goalContainer',
+		goalViews: [],
 		events: {
-		  'click #createGoalBtn': 'createGoal'
+		  'click #createGoalBtn': 'createGoal',
 		},
 
 		initialize: function(){
@@ -22,9 +23,8 @@ var app = app || {};
 		render: function(){
 			var self = this;
 
-			_(this.collection.models).each(function(item){ self.appendItem(item); }, this);
-			$(this.container).append("<ol id='goalList'></ol>");
-			
+			$(this.container).html("<ol id='goalList'></ol>");
+			_(this.goalViews).each(function(view){ $('ol', this.el).append(view.el); }, this);
 			return this; // for chainable calls, like .render().el
 		},
 
@@ -40,12 +40,17 @@ var app = app || {};
 		addGoal: function(newGoal){
 			var goalView = new GoalView({ model: newGoal });
 			$('ol', this.el).append(goalView.render().el);
+			this.goalViews.push(goalView);
 		},
 		
 		//should rerender the goals after sorting
 		updateGoals: function() {
 			var ref = this.collection, $el;
-			
+			this.goalViews.sort(function(a,b){
+				return a.model.get('priority') > b.model.get('priority');
+			});
+
+			_(this.goalViews).each(function(view){ $('ol', this.el).append(view.el); }, this);
 		},
 		
 		unrender: function(){},
@@ -73,7 +78,7 @@ var app = app || {};
 
 			this.model.bind('change', this.render);
 			this.model.bind('remove', this.remove);
-			this.render();
+			return this.render();
 		},
 
 		render: function(){
@@ -121,10 +126,11 @@ var app = app || {};
 				if (currIndex < this.collection.length - 1) 
 					this.model.swap(this.collection.at(currIndex + 1));
 				*/	
-				this.collection.sortGoals('priority');
+				// this.collection.sortGoals('priority');
 				if (newVote == 0)
 					this.model.removeGoalDown();
 			}
+			app.appView.goalList.updateGoals();
 		},
 
 		up: function(){
@@ -134,7 +140,8 @@ var app = app || {};
 			if (currIndex > 0)
 				this.model.swap(this.collection.at(currIndex - 1));
 			*/	
-			this.collection.sortGoals('priority');
+			// this.collection.sortGoals('priority');
+			app.appView.goalList.updateGoals();
 		},
 		
 		// `swap()` will interchange an `Item`'s attributes. When the `.set()` model function is called, the event `change` will be triggered.
@@ -172,6 +179,10 @@ var app = app || {};
 		
 		// `remove()`: We use the method `destroy()` to remove a model from its collection. Normally this would also delete the record from its persistent storage, but we have overridden that (see above).
 		remove: function(){
+			var self = this;
+			var mypos = app.appView.goalList.goalViews.indexOf(this);
+			console.log(mypos)
+			app.appView.goalList.goalViews.splice( mypos, 1 );
 		  this.model.destroy();
 		  $(this.el).remove();
 		}
