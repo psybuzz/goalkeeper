@@ -42,7 +42,7 @@
 			
 			//if there's an existing row with the same username, then it's been taken
 			if ($num > 0) {
-				$error[] = "The username you have chosen has already been taken. Please try again.";
+				$error[] = "The username you have chosen already exists. Please try another username.";
 			} else {
 				$username = mysqli_real_escape_string($con, $_POST["username"]);
 			}
@@ -63,7 +63,7 @@
 		//if there aren't any errors, go ahead and store the information in the database
 		if (empty($error)) {
 			$encrypt = md5(uniqid(rand(), true)); //does an md5 hash key encryption
-			$query = "INSERT INTO users (username, email, password, active) VALUES ('$username', '$email', SHA('$password'), $'encrypt')";
+			$query = "INSERT INTO users (username, password, email, active) VALUES ('$username', SHA1('$password'), '$email', '$encrypt')";
 			
 			$result = mysqli_query($con, $query);
 			
