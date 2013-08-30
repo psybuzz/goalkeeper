@@ -6,7 +6,6 @@
 	</head>
 	<body style="margin:0; background-color: #F2F2F2;">
 		<header></header>
-		<div id="logo"></div>
 
 		<!-- Left side: goals, mostly -->
 		<div id="leftpane">
