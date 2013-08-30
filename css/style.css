@@ -205,3 +205,8 @@
 	-ms-user-select: none;
 	user-select: none;
 }
+
+.checkLabel {
+	padding-left: 5px; 
+	font-size: 13px
+}

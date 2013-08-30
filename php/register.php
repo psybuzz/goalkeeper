@@ -1,5 +1,4 @@
 <?php
-	include("connect.php");
 	include("functions.php");
 	
 	/**
@@ -8,11 +7,6 @@
 	*/
 	if (isset($_POST["rsubmit"])) {
 		$error = array(); //an array of possible errors for each entry
-		
-		/*$email = $_POST["email"];
-		$username = $_POST["username"];
-		$password = $_POST["password"];
-		$vpass = $_POST["rpass"];*/
 		
 		//email validation
 		if (!filter_var(stripslashes(trim($_POST["email"])), FILTER_VALIDATE_EMAIL)) {
