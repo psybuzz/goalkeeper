@@ -24,14 +24,26 @@
 		</div>
 
 		<button class='btn btn-info' id='switchBtn'>switch</button>
+
+		<?php
+			if (!$_SESSION['id']):
+				//user is currently not logged in.
+		?>
 		
 		<button class="btn btn-info" id="rlBtn">Login or Register</button>
 		
 		<!--The overlay that pops up when you click the login/register button-->
 		<div id="login-overlay">
 			<div class="cover"></div>
-			
 			<div class="pop-up">
+				<?php
+					if ($_SESSION['msg']['login-err'])
+					{
+						echo '<div class="error">'.$_SESSION['msg']['login-err'].'</div>';
+						unset($_SESSION['msg']['login-err']);
+						//this outputs error from login
+					}
+				?>
 				<div id="loginpane">
 					<h3>Login</h3>
 					<form action="Login.php" method="post"><!--Todo: add login script-->
@@ -67,6 +79,9 @@
 				</div>
 			</div>
 		</div>
+		<?php
+			endif;
+		?>
 
 		<script src="js/jquery-1.10.2.js"></script>
 		<script src="js/bootstrap.min.js"></script>

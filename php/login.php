@@ -1,5 +1,4 @@
 <?php
-
 	if (isset($_POST["loginsubmit"])) {
 
 		$error = array();
@@ -38,7 +37,7 @@
 			$error[] = "This user does not exist";
 		}
 		 
-		if (!empty($error)) {
+		if ($error) {
 			$_SESSION["msg"]["login-err"] = implode("<br />", $error); //save the error messages in the session
 		}
 		
