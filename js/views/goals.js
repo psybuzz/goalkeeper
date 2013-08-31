@@ -70,6 +70,7 @@ var app = app || {};
 		  'click .removeGoalBtn': 'removeGoal',
 		  'click .upVoteBtn': 'up',
 		  'click .downVoteBtn': 'down',
+		  'click': 'focus',
 		},
 
 		initialize: function(){
@@ -84,7 +85,7 @@ var app = app || {};
 		render: function(){
 			var self = this;
 
-			$(this.el).html("<li class='goal-label' style='background-color:" 
+			$(this.el).html("<li class='goal-label selectable' style='border-left-color:" 
 			+ self.model.get('color') + "'>" 
 			+ "<div class='removeGoalBtn'><i class='icon-remove icon-white'></i></div>"
 			+ "<div class='upVoteBtn'><i class='icon-chevron-up'></i></div>"
@@ -96,9 +97,30 @@ var app = app || {};
 			+ self.model.get('index')
 			+ "</li>");
 
+			$(this.el).hide().fadeIn(100);
+
 			return this; // for chainable calls, like .render().el
 		},
 
+		focus: function(){
+			//if clicking a different goal, switch to this context
+			//alert($('.goal-label', this.el).css('background-color'))
+			$('.goal-label').css('background-color', "");
+			$('.goal-label').addClass('selectable');
+			$('.goal-label', this.el).removeClass('selectable');
+			
+			//apply new color
+			var rgbString = $('.goal-label', this.el).css('border-left-color');
+			var rgb = rgbString.substr(4, rgbString.length - 5).split(",");
+			var target = 96;
+			var r2 = Math.round((3*parseInt(rgb[0],10) + target) / 4);
+			var g2 = Math.round((3*parseInt(rgb[1],10) + target) / 4);
+			var b2 = Math.round((3*parseInt(rgb[2],10) + target) / 4);
+			var newRgb = "rgb(" + r2 + "," + g2 + "," + b2 + ")";
+			$('.goal-label', this.el).css('background-color', newRgb);
+			$(this.el).attr('contentEditable', 'true');
+			
+		},
 		hover: function(){
 			$('.removeGoalBtn, .upVoteBtn, .downVoteBtn', this.el).show();
 		},

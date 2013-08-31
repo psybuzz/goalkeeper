@@ -1,3 +1,11 @@
+body{
+	-webkit-transition: all 0.5s ease-in-out;
+	transition: transform 0.5s;
+}
+div{
+	outline:none;
+}
+
 #container{
 	padding:15px;
 	text-align:center;
@@ -60,6 +68,16 @@
 .goal-label{
 	padding:10px 10px 10px 25px;
 	position:relative;
+	border-left: 7px solid;
+}
+.goal-label:hover{
+	border-left-width: 15px;
+}
+.selectable{
+	background-color: whitesmoke;
+}
+.selectable:hover{
+	background-color:rgb(230,230,230);
 }
 
 #goalList {
@@ -68,7 +86,24 @@
 
 #createGoalBtn{
 	position:fixed;
-	top:25%;
+	top:23%;
+	left: 25px;
+	width: 17%;
+	padding:5px 10px;
+	border: 1px solid grey;
+	background-color: rgb(230,230,230);
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: -moz-none;
+	-ms-user-select: none;
+	user-select: none;
+}
+#createGoalBtn:hover{
+	background-color: lightgrey;
+}
+#createGoalBtn:active{
+	background-color: grey;
 }
 
 .removeGoalBtn{

@@ -9,7 +9,7 @@
 
 		<!-- Left side: goals, mostly -->
 		<div id="leftpane">
-			<button class='btn btn-info' id='createGoalBtn'>Create +</button>
+			<div id='createGoalBtn'>Create +</div>
 
 			<div id="goalContainer"></div>
 		</div>
@@ -54,7 +54,7 @@
 									<td><input type="checkbox" name="rememberME" id="remCheckbox" ></td>
 									<td><label for="remCheckbox" class="checkLabel";>Remember me</label></td>
 								</tr></table>
-								<td><input type="submit" name="loginsubmit"></td>
+								<td><input type="submit" name="loginsubmit" /></td>
 							</tr>
 						</table>
 					</form>
@@ -69,10 +69,10 @@
 							<tr><td>Password</td><td><input type="password" name="password"></td></tr>
 							<tr><td>Re-enter Password</td><td><input type="password" name="password2"</td></tr>
 							<table><tr>
-								<td><input type="checkbox" name="terms-policy" id="t-p checkbox" value="agree"></td>
+								<td><input type="checkbox" name="terms-policy" id="t-pcheckbox" value="agree"></td>
 								<td><label for="t-p checkbox" class="checkLabel">Do you agree to our non-existent terms and policies?</label></td>
 							</tr></table>
-							<tr><td><input type="submit" name="rsubmit"></td></tr>
+							<tr><td><input type="submit" name="rsubmit" /></td></tr>
 						</table>
 					</form>
 				</div>
