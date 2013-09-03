@@ -23,50 +23,10 @@
 		</div>
 
 		<button class='btn btn-info' id='switchBtn'>switch</button>
-		
-		<button class="btn btn-info" id="rlBtn">Login or Register</button>
-		
-		<!--The overlay that pops up when you click the login/register button-->
-		<div id="login-overlay">
-			<div class="cover"></div>
-			<div class="pop-up">
-				<div id="loginpane">
-					<h3>Login</h3>
-					<form action="Login.php" method="post"><!--Todo: add login script-->
-						<table>
-							<tr>
-								<tr><td>Username</td><td><input type="text" name="loginname"></td></tr>
-								<tr><td>Password</td><td><input type="password" name="loginpass"></td></tr>
-								<table><tr>
-									<td><input type="checkbox" name="rememberME" id="remCheckbox" ></td>
-									<td><label for="remCheckbox" class="checkLabel";>Remember me</label></td>
-								</tr></table>
-								<td><input type="submit" name="loginsubmit" /></td>
-							</tr>
-						</table>
-					</form>
-				</div>
-				<!--need to add some kind of divider-->
-				<div id="registerpane">
-					<h3>Register</h3>
-					<form action="Registration.php" method="post">
-						<table>
-							<tr><td>Email</td><td><input type="text" name="email"></td></tr>
-							<tr><td>Username</td><td><input type="text" name="username"></td></tr>
-							<tr><td>Password</td><td><input type="password" name="password"></td></tr>
-							<tr><td>Re-enter Password</td><td><input type="password" name="password2"</td></tr>
-							<table><tr>
-								<td><input type="checkbox" name="terms-policy" id="t-pcheckbox" value="agree"></td>
-								<td><label for="t-p checkbox" class="checkLabel">Do you agree to our non-existent terms and policies?</label></td>
-							</tr></table>
-							<tr><td><input type="submit" name="rsubmit" /></td></tr>
-						</table>
-					</form>
-				</div>
-			</div>
-		</div>
+
 		<?php
-			endif;
+			if (isset($_SESSION['user_name']))
+				echo "session works!";
 		?>
 
 		<script src="js/jquery-1.10.2.js"></script>

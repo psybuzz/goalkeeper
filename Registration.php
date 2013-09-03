@@ -3,6 +3,6 @@
 
 	require_once('php/register.php');
 
-	header("Location: index.php");
+	header("Location: index.html");
 	exit;
 ?>

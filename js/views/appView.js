@@ -8,9 +8,7 @@ var app = app || {};
 		lastDay: '',
 		events: {
 		  'click button#switchBtn': 'switchMode',
-		  'keypress #cmd-input': 'cmdInput',
-		  'click #rlBtn': 'showLogin',
-		  'click .cover': 'hideLogin',
+		  'keypress #cmd-input': 'cmdInput'
 		},
 		initialize: function(){
 			
@@ -77,12 +75,6 @@ var app = app || {};
 				//scroll
 				$("html, body").animate({ scrollTop: $(document).height() }, "fast");
 			}
-		},
-		showLogin: function(){
-			$('#login-overlay').fadeIn('fast');
-		},
-		hideLogin: function(){
-			$('#login-overlay').fadeOut('fast');
 		}
 	});
 })();

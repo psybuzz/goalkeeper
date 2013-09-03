@@ -1,10 +1,6 @@
 <?php
+	require_once('php/functions.php');
 	require_once('php/connect.php');
-
-	require_once('php/logincheck.php');
-
 	require_once('php/login.php');
-
-	header("Location: index.php");
-	exit;
+	redirect('index.html');
 ?>
