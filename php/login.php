@@ -1,6 +1,4 @@
 <?php
-	require_once("functions.php");
-
 	if (isset($_POST["loginsubmit"])) {
 		$error = array();
 
@@ -13,7 +11,7 @@
 		$query = "SELECT username, email, password FROM users WHERE username = '$username'";
 		$result = mysqli_query($con, $query);
 		$num = mysqli_num_rows($result);
-		
+	
 		if ($num == 1) {
 			$result_row = mysqli_fetch_object($result);
 			
@@ -26,8 +24,7 @@
 				session_start();
 				$_SESSION['user_name'] = $result_row->username;
 				$_SESSION['user_email'] = $result_row->email;
-				redirect('members.php');
-				exit();
+				$_SESSION['isLoggedIn'] = 1;
 			}
 			else {
 				$error[] = "Wrong password. Try again.";
@@ -37,10 +34,10 @@
 			$error[] = "This user does not exist";
 		}
 		 
-		/*if ($error) {
+		if ($error) {
 			foreach ($error as $msg) {
 				echo "$msg<br /> \n";
 			}
-		}*/
+		}
 	}
 ?>

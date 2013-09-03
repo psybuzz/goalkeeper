@@ -1,6 +1,4 @@
 <?php
-	include("functions.php");
-	
 	/**
 	* The registration script for the website. It checks for valid email, username, and password, then stores it
 	* into our database.

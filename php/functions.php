@@ -40,6 +40,6 @@
 	* Redirects the page to the given parameter.
 	*/
 	function redirect($url) { 
-    	echo "<script type='text'/javascript'>window.location.href='" . $url . "';</script>";
+    	echo "<script type='text'/javascript'>window.location.href='" . $url . ";</script>";
 	}
 ?>

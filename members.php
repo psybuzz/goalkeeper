@@ -27,6 +27,8 @@
 		<?php
 			if (isset($_SESSION['user_name']))
 				echo "session works!";
+			else
+				echo "session not working =(";
 		?>
 
 		<script src="js/jquery-1.10.2.js"></script>
