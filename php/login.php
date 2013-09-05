@@ -20,11 +20,13 @@
 					$cookiehash = md5(sha1($username . 7));
 					setcookie($username, $cookiehash, time() + (2 * 7 * 24 * 60 * 60));
 				}*/
-				session_name('goalkeeper');
+				session_name('chocolatechip');
 				session_start();
-				$_SESSION['user_name'] = $result_row->username;
-				$_SESSION['user_email'] = $result_row->email;
-				$_SESSION['isLoggedIn'] = 1;
+				/*Session expires after leaving this page!
+				  Todo: use cookie to keep session going?
+				*/
+				$_SESSION['uname'] = $result_row->username;
+				$_SESSION['isLoggedIn'] = "1";
 			}
 			else {
 				$error[] = "Wrong password. Try again.";

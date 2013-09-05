@@ -1,3 +1,4 @@
+<?php include('init.php');?>
 <html>
 	<head>
 		<link rel="stylesheet" href="css/bootstrap.min.css">
@@ -25,7 +26,7 @@
 		<button class='btn btn-info' id='switchBtn'>switch</button>
 
 		<?php
-			if (isset($_SESSION['user_name']))
+			if (isset($_SESSION['uname']))
 				echo "session works!";
 			else
 				echo "session not working =(";
@@ -44,4 +45,4 @@
 		<script src="js/views/heading.js"></script>
 		<script src="js/app.js"></script>
 	</body>
-</html>	
+</html>
