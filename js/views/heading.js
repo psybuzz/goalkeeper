@@ -23,11 +23,23 @@ var app = app || {};
 		render: function(){
 			var self = this;
 
-			$(this.el).html("<div class='jumbotron'><h1 id='forehead'>"+self.model.get('forehead') + '</h1>'
+			$(this.el).html("<div class='jumbotron'>"
 				+ "<h2 id='backhead'>" + self.model.get('backhead') + "</h2>"
-				+ "<div id='message' class='lead'" + self.model.get('message')+"</div></div>");
+				+ "<h1 id='forehead'>" + self.model.get('forehead') + '</h1>'
+				+ "<div id='message' class='lead'>" + self.model.get('message')+"</div>"
+				+ "</div>");
 
 			return this; // for chainable calls, like .render().el
+		},
+
+		setForehead: function(text){
+			this.model.set('forehead', text);
+		},
+		setBackhead: function(text){
+			this.model.set('forehead', text);
+		},
+		setMessage: function(text){
+			this.model.set('forehead', text);
 		},
 
 		zoom: function(){

@@ -10,9 +10,8 @@
 
 		<!-- Left side: goals, mostly -->
 		<div id="leftpane">
-			<div id='createGoalBtn'>Create +</div>
-
 			<div id="goalContainer"></div>
+			<div id='createGoalBtn'>Create +</div>
 		</div>
 		
 		<!-- Right side: main content, stuff... -->

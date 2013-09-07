@@ -103,11 +103,13 @@ var app = app || {};
 		},
 
 		focus: function(){
+			var self = this;
+
 			//if clicking a different goal, switch to this context
 			//alert($('.goal-label', this.el).css('background-color'))
 			$('.goal-label').css('background-color', "");
 			$('.goal-label').addClass('selectable');
-			$('.goal-label', this.el).removeClass('selectable');
+			$('.goal-label', this.el).removeClass('selectable').css('box-shadow', 'box-shadow: inset -10px 0px 30px -15px #000000');
 			
 			//apply new color
 			var rgbString = $('.goal-label', this.el).css('border-left-color');
@@ -120,6 +122,8 @@ var app = app || {};
 			$('.goal-label', this.el).css('background-color', newRgb);
 			$(this.el).attr('contentEditable', 'true');
 			
+			app.appView.head.setForehead( self.model.get('title') );
+			app.appView.head.setMessage( self.model.get('description') );
 		},
 		hover: function(){
 			$('.removeGoalBtn, .upVoteBtn, .downVoteBtn', this.el).show();

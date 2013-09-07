@@ -22,9 +22,9 @@ div{
 }
 
 .jumbotron{
-	position:absolute;
-	left:30px;
 	z-index:1;
+	padding: 0 0 35 0;
+	/*background-color:white;*/
 }
 
 #forehead{
@@ -32,37 +32,45 @@ div{
 	font-size:42px;
 	color:#636363;
 	position: relative;
-	top:20px;
+	margin:0px;
+	top:10px;
+	left:30px;
 }
 
 #backhead{
 	position:absolute;
 	top:-7px;
-	left:-35px;
+	left:-7px;
 	font-size:75px;
-	color:lightgrey;
-	z-index:-1;
+	color:rgb(220,220,220);
+	/*z-index:-1;*/
+	margin-top:0px;
 }
 
 #message{
 	position:relative;
-	top:25px;
+	top:0px;
+	left:30px;
+	font-size:15px;
+	margin-bottom: -30px;
 }
 
 #leftpane{
 	width:25%;
 	height:100%;
-	position:fixed;
+	/*position:relative;*/
+	position:absolute;
 	left:0;
 }
 
 #goalContainer{
-	width:25%;
-	height:70%;
-	position:fixed;
+	/*width:25%;
+	height:70%;*/
+	position:relative;
 	left:0;
-	top:30%;
-	overflow-y: auto;
+	top:1%;
+	padding-bottom:80px;
+	/*overflow-y: auto;*/
 }
 
 .goal-label{
@@ -72,6 +80,7 @@ div{
 }
 .goal-label:hover{
 	border-left-width: 15px;
+	box-shadow: inset -10px 0px 30px -17px #000000;
 }
 .selectable{
 	background-color: whitesmoke;
@@ -86,7 +95,7 @@ div{
 
 #createGoalBtn{
 	position:fixed;
-	top:23%;
+	bottom:3%;
 	left: 25px;
 	width: 17%;
 	padding:5px 10px;

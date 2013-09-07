@@ -24,7 +24,7 @@ var app = app || {};
 			visibility: 'private',
 			forehead: 'carpe diem motto',
 			backhead: 'life set',
-			message: 'started 3 years ago<br>some awesome goals to strive for'
+			message: 'some awesome goals to strive for  |  started 3 years ago'
 		}
 	});
 
