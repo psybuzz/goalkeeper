@@ -122,8 +122,13 @@ var app = app || {};
 			$('.goal-label', this.el).css('background-color', newRgb);
 			$(this.el).attr('contentEditable', 'true');
 			
+			//load goal data into header
 			app.appView.head.setForehead( self.model.get('title') );
 			app.appView.head.setMessage( self.model.get('description') );
+
+			//load goal contents into the bigContainer
+			//LOAD FROM DB
+			
 		},
 		hover: function(){
 			$('.removeGoalBtn, .upVoteBtn, .downVoteBtn', this.el).show();

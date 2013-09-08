@@ -4,8 +4,8 @@ var app = app || {};
 	//Models: Goal, Heading, Dateset, Card
 	Goal = app.Goal = Backbone.Model.extend({
 		defaults: {
-			title: 'stop being sad.',
-			description: ' start being awesome.',
+			title: 'start being awesome.',
+			description: ' life is just too short.',
 			progess: 0,
 			total: 100,
 			priority: 0,
@@ -22,9 +22,10 @@ var app = app || {};
 	Heading = app.Heading = Backbone.Model.extend({
 		defaults: {
 			visibility: 'private',
-			forehead: 'carpe diem motto',
-			backhead: 'life set',
-			message: 'some awesome goals to strive for  |  started 3 years ago'
+			forehead: "it's adventure time",
+			backhead: username,
+			message: 'some awesome goals to strive for  |  started 3 years ago',
+			sets: ["fitness","study","friends","family","games"],
 		}
 	});
 

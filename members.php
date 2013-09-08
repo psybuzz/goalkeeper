@@ -22,15 +22,15 @@
 			<input id="cmd-input" type="text" placeholder="what happened?">
 		</div>
 
-		<button class='btn btn-info' id='switchBtn'>switch</button>
-
 		<?php
 			if (isset($_SESSION['uname']))
 				echo "session works!";
 			else
 				echo "session not working =(";
 		?>
-
+		<script>
+			var username = "<?php echo $_SESSION['uname'];?>"
+		</script>
 		<script src="js/jquery-1.10.2.js"></script>
 		<script src="js/bootstrap.min.js"></script>
 		<script src="js/underscore-1.5.1.js"></script>
@@ -43,5 +43,8 @@
 		<script src="js/views/goals.js"></script>
 		<script src="js/views/heading.js"></script>
 		<script src="js/app.js"></script>
+
+		
+		
 	</body>
 </html>
