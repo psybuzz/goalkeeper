@@ -1,7 +1,9 @@
 body{
+	transition: transform 0.5s;
+}
+.transition{
 	-webkit-transition: all 0.5s ease-in-out;
 	-webkit-backface-visibility: hidden;
-	transition: transform 0.5s;
 }
 div{
 	outline:none;
@@ -25,17 +27,18 @@ div{
 .jumbotron{
 	z-index:1;
 	padding: 0 0 35 0;
+	border-bottom:5px solid orange;
 	/*background-color:white;*/
 }
 
 #forehead{
-	border-bottom: 1px solid gray;
+	//border-bottom: 1px solid gray;
 	font-size:42px;
 	color:#636363;
 	position: relative;
 	margin:0px;
-	top:10px;
-	left:40px;
+	top:17px;
+	margin-left:40px;
 }
 
 .setlist{
@@ -79,15 +82,15 @@ div{
 
 #message{
 	position:relative;
-	top:0px;
-	left:40px;
+	top:10px;
+	margin-left:40px;
 	font-size:15px;
-	margin-bottom: -30px;
+	margin-bottom: -20px;
 }
 
 #leftpane{
 	width:25%;
-	height:100%;
+	//height:100%;
 	/*position:relative;*/
 	position:absolute;
 	/*left:0;*/
@@ -99,7 +102,7 @@ div{
 	position:relative;
 	left:0;
 	top:1%;
-	padding-bottom:80px;
+	padding-bottom:30px;
 	/*overflow-y: auto;*/
 }
 
@@ -171,10 +174,16 @@ div{
 
 #rightpane{
 	width:75%;
-	height:100%;
 	position:relative;
 	left:25%;
-	background-color: lightgrey;
+}
+#rightbackdrop{
+	position:fixed;
+	z-index:-1;
+	width:75%;
+	height:100%;
+	left:25%;
+	background-color: lightgrey;	
 }
 
 #cmd-input{

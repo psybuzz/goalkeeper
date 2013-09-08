@@ -18,16 +18,21 @@
 		<div id="rightpane">
 			<div id="bigContainer">
 				
+
+				<?php
+					if (isset($_SESSION['uname']))
+						echo "session works!";
+					else
+						echo "session not working =(";
+				?>
+
+
 			</div>
 			<input id="cmd-input" type="text" placeholder="what happened?">
 		</div>
+		<div id="rightbackdrop"></div>
 
-		<?php
-			if (isset($_SESSION['uname']))
-				echo "session works!";
-			else
-				echo "session not working =(";
-		?>
+		
 		<script>
 			var username = "<?php echo $_SESSION['uname'];?>"
 		</script>
