@@ -28,7 +28,7 @@ div{
 	z-index:1;
 	padding: 0 0 35 0;
 	border-bottom:5px solid orange;
-	/*background-color:white;*/
+	background-color:rgb(242,242,242);
 }
 
 #forehead{
@@ -183,7 +183,9 @@ div{
 	width:75%;
 	height:100%;
 	left:25%;
-	background-color: lightgrey;	
+	top:90px;
+	background-color: lightgrey;
+	box-shadow: inset 15px 0px 30px -30px black;
 }
 
 #cmd-input{
@@ -193,18 +195,26 @@ div{
 
 	left:37%;
 	bottom:30px;
+	opacity:0.5;
+}
+#cmd-input:hover{
+	opacity:1;
 }
 
 #bigContainer{
 	padding: 30px 0px 80px 150px;
 	background-color: lightgrey;
+	box-shadow: inset 15px 0px 30px -30px black;
 }
 
 .date-label{
-	background-color: gray;
-	color: white;
-	padding:10px;
+	/*background-color: gray;*/
+	border-bottom: 1px solid gray;
+	color: gray;
+	padding:10px 0px 0px 0px;
 	font-size:18px;
+	font-family:Open Sans;
+	//font-weight:bold;
 }
 
 .card-div{
@@ -213,12 +223,17 @@ div{
 }
 
 .card-div-big{
-	margin:20px 0px 20px 0px;
+	margin:70px 0px 50px 0px;
 }
 
 .card{
 	padding:15px;
-	font-size:14px;
+	//font-size:14px;
+	font-size:30px;
+}
+.suggestion{
+	color: rgb(55, 143, 240);
+	font-style: italic;
 }
 
 .card-number{

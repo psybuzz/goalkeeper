@@ -12,6 +12,16 @@
 		<div id="leftpane">
 			<div id="goalContainer"></div>
 			<div id='createGoalBtn'>Create +</div>
+
+			<div id='suggestNewGoal' class='suggestion' style='position:relative; top:0px; left:37px; font-family:Open Sans; line-height:18px'>
+				stuck?  try one of these:
+				<br><br>
+				<ul>
+					<li><a onclick="app.appView.goalList.createGoal('write a short story')"> write a short story</a></li>
+					<li><a onclick="app.appView.goalList.createGoal('sleep early')"> sleep early</a></li>
+					<li><a onclick="app.appView.goalList.createGoal('call parents')"> call parents tomorrow</a></li>
+				</ul>
+			</div>
 		</div>
 		
 		<!-- Right side: main content, stuff... -->
@@ -29,8 +39,9 @@
 
 			</div>
 			<input id="cmd-input" type="text" placeholder="what happened?">
+			<div id="rightbackdrop"></div>
 		</div>
-		<div id="rightbackdrop"></div>
+
 
 		
 		<script>

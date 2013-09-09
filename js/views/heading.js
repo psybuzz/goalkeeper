@@ -64,22 +64,29 @@ var app = app || {};
 		},
 
 		zoom: function(){
+			//add fallbacks from -webkit-transform to animate
+
+			//be nice to gpu by changing position after webkit transform
+
 			//slide the cart
 			var cart = $('header');
 			if ( this.zoomout == false ){
 				// $('body').css('margin', '100px');
-				cart.addClass('transition');
-				cart.css('-webkit-transform', 'translateX(100px) translateY(100px)');
-				$('.setlist').animate({
-					'top': '-25px',
-					'left': '15px',
-				});
 				$('.logo').addClass('logo-chosen');
 				$('.set').addClass('inline');
-				$('#leftpane, #rightpane').fadeOut();
+
+				cart.addClass('transition');
+				cart.css('-webkit-transform', 'translateX(100px) translateY(150px)');
+				$('#leftpane, #rightpane').fadeOut(300, function(){
+					$('.setlist').animate({
+						'top': '-50px',
+						'left': '15px',
+					});
+				});
 			} else {
 				// $('body').css('margin', '0px');
 				cart.css('-webkit-transform', 'translateX(0px) translateY(0px)');
+				
 				$('.setlist').animate({
 					'top': '-5px',
 					'left': '-25px',
@@ -87,9 +94,10 @@ var app = app || {};
 				}, function(){
 					cart.removeClass('transition');
 				});
+				$('#leftpane, #rightpane').fadeIn();
 				$('.logo').removeClass('logo-chosen');
 				$('.set').removeClass('inline');
-				$('#leftpane, #rightpane').fadeIn();
+				
 			}
 			this.zoomout = !this.zoomout;
 		},

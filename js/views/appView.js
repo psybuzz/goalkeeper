@@ -21,6 +21,20 @@ var app = app || {};
 			this.cards = new CardView({ model: new Card });
 			this.render();
 			$('#cmd-input').focus();
+
+		//put right backdrop in correct location
+			$('#rightbackdrop').css('top', parseInt($('header').css('height'),10) );
+		//suggestions for new users
+			$('#suggestNewGoal').css('opacity', 0);
+			setTimeout(function(){
+				$('#suggestNewGoal').animate({ 
+					'top': '80',
+					'opacity': 1,
+				});
+				setTimeout(function(){
+					$('#suggestNewGoal').fadeOut();
+				}, 6000);
+			}, 400);
 		},
 		render: function(){
 			if (this.mode == 'goal'){
@@ -68,6 +82,8 @@ var app = app || {};
 						+ date.toDateString().substring(4)
 						+ "</span></div>" );
 				} else {
+					//simply adds the text to the container within a div
+
 					$(this.terminal).append( "<div class='card-div'><span class='card'>" + text + "</span></div>" );
 				}
 					

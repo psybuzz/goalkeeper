@@ -28,13 +28,20 @@ var app = app || {};
 			return this; // for chainable calls, like .render().el
 		},
 
-		createGoal: function(){
+		createGoal: function(text){
 			var goal = new Goal();
 			goal.set({
 				progress: Math.floor(Math.random()*100),
-				index: this.collection.length
+				index: this.collection.length,
 			});
+			if (typeof text === 'string'){
+				goal.set({ title: text });
+			}
 			this.collection.add(goal);
+
+			$('#suggestNewGoal').fadeOut();
+
+			return goal;
 		},
 
 		addGoal: function(newGoal){
@@ -75,7 +82,8 @@ var app = app || {};
 
 		initialize: function(){
 			// every function that uses 'this' as the current object should be in here
-			_.bindAll(this, 'render', 'unrender', 'up', 'down', 'swap', 'remove', 'hover', 'leave', 'removeGoalDown', 'removeGoalUp', 'removeGoal'); 
+			_.bindAll(this, 'render', 'unrender', 'up', 'down', 'swap', 'remove', 'hover', 
+				'focus', 'leave', 'removeGoalDown', 'removeGoalUp', 'removeGoal'); 
 
 			this.model.bind('change', this.render);
 			this.model.bind('remove', this.remove);
@@ -91,7 +99,7 @@ var app = app || {};
 			+ "<div class='upVoteBtn'><i class='icon-chevron-up'></i></div>"
 			+ "<div class='downVoteBtn'><i class='icon-chevron-down'></i></div>"
 			+ self.model.get('priority') + ". " 
-			+ self.model.get('title') + ' '
+			+ self.model.get('title') + '<br>'
 			+ self.model.get('description') + ' ' 
 			+ self.model.get('progress') + '. Index: '
 			+ self.model.get('index')
