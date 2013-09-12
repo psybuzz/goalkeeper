@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<?php include('init.php');?>
 <html>
 	<head>
 		<link rel="stylesheet" href="css/bootstrap.min.css">
@@ -10,7 +10,7 @@
 	<body>
 		<div id="loginpane">
 			<h3>Login to Goalkeeper</h3>
-			<form action="Login.php" method="post"><!--Todo: add login script-->
+			<form action="Login.php" method="post">
 				<table>
 					<tr>
 						<tr><td>Username</td><td><input type="text" name="loginname"></td></tr>
@@ -40,6 +40,14 @@
 					<tr><td><input type="submit" name="rsubmit" /></td></tr>
 				</table>
 			</form>
+		<!--This displays any error messages from login or registration-->
 		</div>
+		<?php if (isset($_SESSION['errors'])): ?>
+			<div id="form-errors">
+				<?php foreach($_SESSION['errors'] as $error): ?>
+					<p class="error-message"><?php echo $error ?></p>
+				<?php endforeach; $_SESSION['errors'] = array();?>
+			</div>
+		<?php endif;?>
 	</body>
 </html>
