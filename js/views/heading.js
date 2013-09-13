@@ -78,12 +78,14 @@ var app = app || {};
 
 				cart.addClass('transition');
 				cart.css('-webkit-transform', 'translateX(100px) translateY(150px)');
-				$('#leftpane, #rightpane').fadeOut(300, function(){
+				$('#rightpane').fadeOut(200, function(){
 					$('.setlist').animate({
 						'top': '-50px',
 						'left': '15px',
 					});
 				});
+				$('#leftpane').addClass('indent');
+				$('#createGoalBtn').fadeOut();
 			} else {
 				// $('body').css('margin', '0px');
 				cart.css('-webkit-transform', 'translateX(0px) translateY(0px)');
@@ -93,12 +95,13 @@ var app = app || {};
 					'left': '-25px',
 					'display': 'none'
 				}, function(){
-					cart.removeClass('transition');
+					//cart.removeClass('transition');
 				});
-				$('#leftpane, #rightpane').fadeIn();
+				$('#rightpane').fadeIn();
+				$('#leftpane').removeClass('indent');
 				$('.logo').removeClass('logo-chosen');
 				$('.set').removeClass('inline');
-				
+				$('#createGoalBtn').fadeIn();
 			}
 			this.zoomout = !this.zoomout;
 		},

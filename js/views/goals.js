@@ -112,6 +112,7 @@ var app = app || {};
 
 		focus: function(){
 			var self = this;
+			var title = self.model.get('title');
 
 			//if clicking a different goal, switch to this context
 			//alert($('.goal-label', this.el).css('background-color'))
@@ -131,12 +132,20 @@ var app = app || {};
 			$(this.el).attr('contentEditable', 'true');
 			
 			//load goal data into header
-			app.appView.head.setForehead( self.model.get('title') );
+			app.appView.head.setForehead( title );
 			app.appView.head.setMessage( self.model.get('description') );
 
 			//load goal contents into the bigContainer
 			//LOAD FROM DB
-			
+			if (localStorage){
+				//check if a goal has been previously saved
+				if (localStorage.hasOwnProperty(title)){
+					$('#bigContainer').html(localStorage[title]);
+				} else {
+					//if not, load an empty slate
+					$('#bigContainer').html("");
+				}
+			}
 		},
 		hover: function(){
 			$('.removeGoalBtn, .upVoteBtn, .downVoteBtn', this.el).show();

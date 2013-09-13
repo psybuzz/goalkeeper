@@ -84,8 +84,12 @@ var app = app || {};
 				} else {
 					//simply adds the text to the container within a div
 
-					$(this.terminal).append( "<div class='card-div'><span class='card'>" + text + "</span></div>" );
+					$(this.terminal).append( "<div class='card-div'><span class='card' contentEditable='true'>" + text + "</span></div>" );
 				}
+
+				//SAVE: Send update to DB
+				localStorage[ $('#forehead').text() ] = $('#bigContainer').html();
+
 					
 
 				//scroll
