@@ -10,8 +10,9 @@
 
 		<!-- Left side: goals, mostly -->
 		<div id="leftpane">
-			<div id="goalContainer"></div>
 			<div id='createGoalBtn'>Create +</div>
+			<div id="goalContainer"></div>
+			
 
 			<div id='suggestNewGoal' class='suggestion' style='position:relative; top:0px; left:37px; font-family:Open Sans; line-height:18px'>
 				stuck?  try one of these:
