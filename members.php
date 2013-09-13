@@ -27,22 +27,10 @@
 		<!-- Right side: main content, stuff... -->
 		<div id="rightpane">
 			<div id="bigContainer">
-				
-
-				<?php
-					if (isset($_SESSION['uname']))
-						echo "session works!";
-					else
-						echo "session not working =(";
-				?>
-
-
 			</div>
 			<input id="cmd-input" type="text" placeholder="what happened?">
 			<div id="rightbackdrop"></div>
 		</div>
-
-
 		
 		<script>
 			var username = "<?php echo $_SESSION['uname'];?>"

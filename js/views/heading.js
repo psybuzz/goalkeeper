@@ -42,7 +42,8 @@ var app = app || {};
 			newHtml += "</ul>"
 				+ "<h1 id='forehead'>" + self.model.get('forehead') + '</h1>'
 				+ "<div id='message' class='lead'>" + self.model.get('message')+"</div>"
-				+ "</div>";
+				+ "</div>"
+				+ "<button type='submit' id='logout' value='logout' formaction='../../logout.php'></button>";
 
 			$(this.el).html( newHtml );
 			return this; // for chainable calls, like .render().el

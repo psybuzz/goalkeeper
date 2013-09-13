@@ -142,6 +142,13 @@ div{
 	-ms-user-select: none;
 	user-select: none;
 }
+
+#logout {
+	background-color:rgb(242,242,242);
+	width: 5%;
+		
+}
+
 #createGoalBtn:hover{
 	background-color: lightgrey;
 }
@@ -262,10 +269,6 @@ div{
 
 #login-overlay {
 	display: none;
-}
-
-#loginpane {
-	
 }
 
 #rlBtn {
