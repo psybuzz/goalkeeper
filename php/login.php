@@ -1,45 +1,50 @@
 <?php
 	if (isset($_POST["loginsubmit"])) {
 		$error = array();
+		session_name('chocolatechip');
+		session_start();
 
 		if (!$_POST["loginname"] || !$_POST["loginpass"]) {
 			$error[] = "All fields must be filled in";
 		}
-		
-		$username = stripslashes(mysqli_real_escape_string($con, $_POST["loginname"]));
-		
-		$query = "SELECT username, email, password FROM users WHERE username = '$username'";
-		$result = mysqli_query($con, $query);
-		$num = mysqli_num_rows($result);
-	
-		if ($num == 1) {
-			$result_row = mysqli_fetch_object($result);
+		else
+		{
+			$username = stripslashes(mysqli_real_escape_string($con, $_POST["loginname"]));
 			
-			if (SHA1(stripslashes(mysqli_real_escape_string($con, $_POST["loginpass"]))) == $result_row->password) {
-				/*if ($_POST['rememberMe'] == '1') { //rememberMe doesn't work currently
-					$cookiehash = md5(sha1($username . 7));
-					setcookie($username, $cookiehash, time() + (2 * 7 * 24 * 60 * 60));
-				}*/
-				session_name('chocolatechip');
-				session_start();
-				/*Session expires after leaving this page!
-				  Todo: use cookie to keep session going?
-				*/
-				$_SESSION['uname'] = $result_row->username;
-				$_SESSION['isLoggedIn'] = "1";
+			$query = "SELECT username, email, password FROM users WHERE username = '$username'";
+			$result = mysqli_query($con, $query);
+			$num = mysqli_num_rows($result);
+		
+			if ($num == 1) {
+				$result_row = mysqli_fetch_object($result);
+				
+				if (SHA1(stripslashes(mysqli_real_escape_string($con, $_POST["loginpass"]))) == $result_row->password) {
+					/*if ($_POST['rememberMe'] == '1') { //rememberMe doesn't work currently
+						$cookiehash = md5(sha1($username . 7));
+						setcookie($username, $cookiehash, time() + (2 * 7 * 24 * 60 * 60));
+					}*/
+					/*Session expires after leaving this page!
+					  Todo: use cookie to keep session going?
+					*/
+					$_SESSION['uname'] = $result_row->username;
+					$_SESSION['id'] = $result_row->id;
+					$_SESSION['isLoggedIn'] = "1";
+				}
+				else {
+					$error[] = "Your username or password was incorrect.";
+				}
 			}
 			else {
-				$error[] = "Wrong password. Try again.";
+				$error[] = "Your username or password was incorrect.";
 			}
-		}
-		else {
-			$error[] = "This user does not exist";
 		}
 		 
 		if ($error) {
 			foreach ($error as $msg) {
-				echo "$msg<br /> \n";
+				$_SESSION['errors'] = array($msg);
 			}
+
+			$_SESSION['isLoggedIn'] = "0";
 		}
 	}
 ?>
