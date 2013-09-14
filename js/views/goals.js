@@ -147,14 +147,14 @@ var app = app || {};
 		  	}
 
 		  	var dragSrcEl = app.appView.goalList.dragSrcEl;
-		  	var srcHtml = dragSrcEl.innerHTML;
-		  	var destEl = this.el.innerHTML;
-		  	if (dragSrcEl != this.el) {
+
+		  	var destEl = this.el;
+		  	if (dragSrcEl != destEl) {
 		    	// Set the source column's HTML to the HTML of the column we dropped on.
-		    	dragSrcEl.innerHTML = destEl;
-		    	this.innerHTML = srcHtml;
-		    	this.innerHTML = e.dataTransfer.getData('text/html');
+		    	dragSrcEl.innerHTML = destEl.innerHTML;
+		    	this.el.innerHTML = e.originalEvent.dataTransfer.getData('text/html');
 		  	}
+		  	$('#goalList').children().removeClass('dragenter dragging');
 
 		  	return false;
 		},
@@ -202,10 +202,10 @@ var app = app || {};
 			}
 		},
 		hover: function(){
-			$('.removeGoalBtn, .upVoteBtn, .downVoteBtn', this.el).show();
+			$('.removeGoalBtn', this.el).show();
 		},
 		leave: function(){
-			$('.removeGoalBtn, .upVoteBtn, .downVoteBtn', this.el).hide();
+			$('.removeGoalBtn', this.el).hide();
 		},
 		removeGoalDown: function () {
 			$('.icon-remove', this.el).removeClass('icon-white');	

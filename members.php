@@ -10,7 +10,10 @@
 
 		<!-- Left side: goals, mostly -->
 		<div id="leftpane">
-			<div id='createGoalBtn'>Create +</div>
+			<div id='topbar'>
+				<input type="text" id="searchbar" placeholder="search...">
+				<div id='createGoalBtn'>+</div>
+			</div>
 			<div id="goalContainer"></div>
 			
 
