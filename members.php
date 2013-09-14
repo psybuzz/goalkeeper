@@ -15,6 +15,9 @@
 		<div id="leftpane">
 			<div id='topbar'>
 				<input type="text" id="searchbar" placeholder="search...">
+				<div id='searchBtn'>
+					<i id='searchIcon' class="icon icon-search"></i>
+				</div>
 				<div id='createGoalBtn'>+</div>
 			</div>
 			<div id="goalContainer"></div>

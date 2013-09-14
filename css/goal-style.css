@@ -37,20 +37,16 @@
 }
 
 #topbar{
-	position:absolute;
+	position:relative;
 	width: 100%;
 	height:30px;
+	top:0px;
 	left:0px;
-	//background-color: gray;
-	background: -webkit-linear-gradient(top, #b5bdc8 0%,#828c95 36%,#808080 100%);
-	font-weight: bold;
+	background-color: lightsteelblue;
+	//background: -webkit-linear-gradient(top, #CFCFCF 0%,#b5bdc8 100%);
 	cursor: default;
-	-webkit-touch-callout: none;
-	-webkit-user-select: none;
-	-khtml-user-select: none;
-	-moz-user-select: -moz-none;
-	-ms-user-select: none;
-	user-select: none;
+	border-top:1px solid white;
+	border-bottom:1px solid white;
 }
 
 #createGoalBtn{
@@ -61,13 +57,52 @@
 	top:0px;
 	font-size: 22px;
 	padding:5px 5px;
+	font-weight: bold;
 	//border-bottom: 1px solid grey;
 	text-align: center;
 	background-color: rgb(230,230,230);
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: moz-none;
+	-ms-user-select: none;
+	user-select: none;
 }
 
+#searchBtn{
+	padding:15px;
+	width:10px;
+}
+#searchBtn:hover{
+	background-color:lightgrey;
+}
+#searchIcon{
+	position:absolute;
+	top:7px;
+	left:12px;
+	//background-color:green;
+}
 #searchbar{
+	position:absolute;
+	height:20px;
+	width:65%;
+	top:5px;
+	left:45px;
 
+	color:white;
+	font-weight:normal;
+	border: 1px solid gray;
+	font-weight: 300;
+	border-radius:0px;
+	background-color: lightgray;
+}
+#searchbar:focus{
+	background-color: gray;
+	-webkit-transition: background-color 200ms linear;
+	-moz-transition: background-color 200ms linear;
+	-o-transition: background-color 200ms linear;
+	-ms-transition: background-color 200ms linear;
+	transition: background-color 200ms linear;
 }
 
 
