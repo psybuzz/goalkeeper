@@ -101,6 +101,11 @@ div{
 	position:absolute;
 	/*left:0;*/
 }
+
+#checkpointPane {
+	right: -200;
+}
+
 .indent{
 	position:relative;
 	top:250px;
@@ -156,14 +161,13 @@ div{
 
 #logout {
 	position: absolute;
-	width: 7%;
-	top: 5%;
-	right: 2%;
+	right: 0%;
+	top: 0%;
 	margin: 0px;
-	border: 2px solid lightgrey;
 	font-weight: bold;
 	text-align: center;
 	cursor: default;
+	padding: 7px;
 }
 
 #logout:hover {

@@ -19,6 +19,16 @@ var app = app || {};
 		}
 	});
 
+	Checkpoint = app.Checkpoint = Backbone.Model.extend({
+		defaults: {
+			title: '',
+			index: -1,
+			complete: 0,
+			created: 0,
+			deadline: 0
+		}
+	});
+
 	Heading = app.Heading = Backbone.Model.extend({
 		defaults: {
 			visibility: 'private',
