@@ -1,5 +1,6 @@
 body{
 	transition: transform 0.4s;
+	overflow-x: hidden;
 }
 
 .transition{
@@ -27,10 +28,13 @@ div{
 }
 
 #checkpointPane {
-	right: 0;
+	right: -15%;
 	position: absolute;
 	width: 15%;
 	background-color: rgb(220,220,220);
+	top: 0;
+	height: 100%;
+	display: none;
 }
 
 .suggestion{

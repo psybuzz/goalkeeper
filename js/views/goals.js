@@ -195,13 +195,14 @@ var app = app || {};
 			$(this.el).attr('contentEditable', 'true');
 
 			//draw the checkpoint panel
-			if (cPanelVisible == false)
+			if (this.cPanelVisible == false)
 			{
+				$('#checkpointPane').show();
 				$('#checkpointPane').animate({
 					'right': 0
 				});
-				
-				cPanelVisible = !cPanelVisible;
+
+				this.cPanelVisible = !this.cPanelVisible;
 			}
 		
 			//load goal data into header
