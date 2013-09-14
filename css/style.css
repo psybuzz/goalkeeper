@@ -19,14 +19,28 @@ div{
 	/*left:0;*/
 }
 
+#rightpane{
+	width:75%;
+	position:relative;
+	left:25%;
+}
+
 #checkpointPane {
-	right: -200;
+	right: 0;
+	position: absolute;
+	width: 15%;
+	background-color: rgb(220,220,220);
+}
+
+.suggestion{
+	color: rgb(55, 143, 240);
+	font-style: italic;
 }
 
 #logout {
 	position: absolute;
-	right: 0%;
-	top: 0%;
+	right: 0;
+	top: 0;
 	margin: 0px;
 	font-weight: bold;
 	text-align: center;
@@ -42,26 +56,8 @@ div{
 	background-color: grey;
 }
 
-#rightpane{
-	width:75%;
-	position:relative;
-	left:25%;
-}
-
-.suggestion{
-	color: rgb(55, 143, 240);
-	font-style: italic;
-}
-
-
 #login-overlay {
 	display: none;
-}
-
-#rlBtn {
-	position: fixed;
-	top: 20px;
-	right: 20px;
 }
 
 .cover {

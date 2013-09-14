@@ -1,12 +1,16 @@
 var app = app || {};
 (function() {
 	//checkpoint view
-	CheckpointView = app.CheckpointView = Backbone.View.extend({
-		el: 'checkpointContainer',
-		container: 'checkpointPane',
+	CheckpointListView = app.CheckpointListView = Backbone.View.extend({
+		el: '#checkpointPane',
 		checkpointViews: [],
 		events: {
 			'click: ',
 		}
-		});
+
+		initialize: function(){
+			_.bindAll(this, 'render', 'unrender', 'remove', 'createCheckpoint', 'addCheckpoint');
+			this.collection = new CheckpointList();
+		}
+	});
 })();
