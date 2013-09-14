@@ -45,8 +45,9 @@ div{
 
 #rightpane{
 	width:75%;
-	position:relative;
+	position:absolute;
 	left:25%;
+	top:90px;
 }
 
 .suggestion{
