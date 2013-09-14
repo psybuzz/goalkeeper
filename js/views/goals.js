@@ -8,7 +8,7 @@ var app = app || {};
 		container: '#goalContainer',
 		goalViews: [],
 		events: {
-		  'click #createGoalBtn': 'createGoal',
+		  'click #createGoalBtn': 'createGoal', 
 		},
 		dragSrcEl: null,
 
@@ -179,6 +179,11 @@ var app = app || {};
 			var newRgb = "rgb(" + r2 + "," + g2 + "," + b2 + ")";
 			$('.goal-label', this.el).css('background-color', newRgb);
 			$(this.el).attr('contentEditable', 'true');
+
+			//draw the checkpoint panel
+			$('#checkpointPane').animate({
+				'right': 0
+			});
 			
 			//load goal data into header
 			app.appView.head.setForehead( title );

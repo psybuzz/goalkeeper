@@ -43,11 +43,9 @@ var app = app || {};
 			newHtml 		+= "</ul>"
 							+ "<h1 id='forehead'>" + self.model.get('forehead') + '</h1>'
 							+ "<div id='message' class='lead'>" + self.model.get('message')+"</div>"
-							//+ "<div>"
-								+ "<form id='logout' name='logout' action='../../logout.php'>"
-									+ "<div id='logoutBtn' onclick='document.logout.submit();'>Log Out</div>"
-								+ "</form>"
-							//+ "</div>"
+							+ "<form id='logout' name='logout' action='../../logout.php'>"
+								+ "<div class='icon-off' onclick='document.logout.submit();'></div>"
+							+ "</form>"
 						+ "</div>";
 
 			$(this.el).html( newHtml );
@@ -91,6 +89,7 @@ var app = app || {};
 				});
 				$('#leftpane').addClass('indent');
 				$('#createGoalBtn').fadeOut();
+				$('#logout').fadeOut('fast');
 			} else {
 				// $('body').css('margin', '0px');
 				cart.css('-webkit-transform', 'translateX(0px) translateY(0px)');
@@ -101,12 +100,14 @@ var app = app || {};
 					'display': 'none'
 				}, function(){
 					//cart.removeClass('transition');
+					$('#logout').fadeIn();
 				});
 				$('#rightpane').fadeIn();
 				$('#leftpane').removeClass('indent');
 				$('.logo').removeClass('logo-chosen');
 				$('.set').removeClass('inline');
 				$('#createGoalBtn').fadeIn();
+				
 			}
 			this.zoomout = !this.zoomout;
 		},
