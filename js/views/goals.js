@@ -10,6 +10,7 @@ var app = app || {};
 		events: {
 		  'click #createGoalBtn': 'createGoal', 
 		},
+		dragSrcEl: null,
 
 		initialize: function(){
 		  _.bindAll(this, 'render', 'unrender', 'createGoal', 'addGoal'); // every function that uses 'this' as the current object should be in here
@@ -78,6 +79,12 @@ var app = app || {};
 		  'click .upVoteBtn': 'up',
 		  'click .downVoteBtn': 'down',
 		  'click': 'focus',
+		  'dragstart': 'dragstart',
+		  'dragend': 'dragend',
+		  'dragover': 'dragover',
+		  'dragenter': 'dragenter',
+		  'dragleave': 'dragleave',
+		  'drop': 'drop',
 		},
 
 		initialize: function(){
@@ -93,7 +100,7 @@ var app = app || {};
 		render: function(){
 			var self = this;
 
-			$(this.el).html("<li class='goal-label selectable' style='border-left-color:" 
+			$(this.el).html("<li class='goal-label selectable' draggable='true' style='border-left-color:" 
 			+ self.model.get('color') + "'>" 
 			+ "<div class='removeGoalBtn'><i class='icon-remove icon-white'></i></div>"
 			+ "<div class='upVoteBtn'><i class='icon-chevron-up'></i></div>"
@@ -108,6 +115,48 @@ var app = app || {};
 			$(this.el).hide().fadeIn(100);
 
 			return this; // for chainable calls, like .render().el
+		},
+
+		dragstart: function(e){
+			$(this.el).addClass('dragging');
+
+			app.appView.goalList.dragSrcEl = this.el;
+
+			e.originalEvent.dataTransfer.effectAllowed = 'move';
+			e.originalEvent.dataTransfer.setData('text/html', this.el.innerHTML);
+		},
+		dragend: function(){
+			$(this.el).removeClass('dragging');
+		},
+		dragover: function(e){
+			if (e.preventDefault) {
+		    	e.preventDefault(); // Necessary. Allows us to drop.
+		  	}
+		  	e.originalEvent.dataTransfer.dropEffect = 'move';  // See the section on the DataTransfer object.
+		  	return false;
+		},
+		dragenter: function(){
+			$(this.el).addClass('dragenter');
+		},
+		dragleave: function(){
+			$(this.el).removeClass('dragenter');
+		},
+		drop: function(e){
+			if (e.stopPropagation) {
+		    	e.stopPropagation(); 	//for some browsers
+		  	}
+
+		  	var dragSrcEl = app.appView.goalList.dragSrcEl;
+		  	var srcHtml = dragSrcEl.innerHTML;
+		  	var destEl = this.el.innerHTML;
+		  	if (dragSrcEl != this.el) {
+		    	// Set the source column's HTML to the HTML of the column we dropped on.
+		    	dragSrcEl.innerHTML = destEl;
+		    	this.innerHTML = srcHtml;
+		    	this.innerHTML = e.dataTransfer.getData('text/html');
+		  	}
+
+		  	return false;
 		},
 
 		focus: function(){
