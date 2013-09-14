@@ -94,6 +94,7 @@ var app = app || {};
 		  'dragleave': 'dragleave',
 		  'drop': 'drop',
 		},
+		cPanelVisible: false,
 
 		initialize: function(){
 			// every function that uses 'this' as the current object should be in here
@@ -133,9 +134,11 @@ var app = app || {};
 			e.originalEvent.dataTransfer.effectAllowed = 'move';
 			e.originalEvent.dataTransfer.setData('text/html', this.el.innerHTML);
 		},
+
 		dragend: function(){
 			$(this.el).removeClass('dragging');
 		},
+
 		dragover: function(e){
 			if (e.preventDefault) {
 		    	e.preventDefault(); // Necessary. Allows us to drop.
@@ -143,12 +146,15 @@ var app = app || {};
 		  	e.originalEvent.dataTransfer.dropEffect = 'move';  // See the section on the DataTransfer object.
 		  	return false;
 		},
+
 		dragenter: function(){
 			$(this.el).addClass('dragenter');
 		},
+
 		dragleave: function(){
 			$(this.el).removeClass('dragenter');
 		},
+
 		drop: function(e){
 			if (e.stopPropagation) {
 		    	e.stopPropagation(); 	//for some browsers
@@ -189,10 +195,15 @@ var app = app || {};
 			$(this.el).attr('contentEditable', 'true');
 
 			//draw the checkpoint panel
-			$('#checkpointPane').animate({
-				'right': 0
-			});
-			
+			if (cPanelVisible == false)
+			{
+				$('#checkpointPane').animate({
+					'right': 0
+				});
+				
+				cPanelVisible = !cPanelVisible;
+			}
+		
 			//load goal data into header
 			app.appView.head.setForehead( title );
 			app.appView.head.setMessage( self.model.get('description') );
