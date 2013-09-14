@@ -144,12 +144,13 @@ div{
 	list-style:none;
 }
 
-#createGoalBtn{
-	position:relative;
+#topbar{
+	position:absolute;
 	width: 100%;
-	padding:5px 10px;
-	border-bottom: 1px solid grey;
-	background-color: rgb(230,230,230);
+	height:30px;
+	left:0px;
+	//background-color: gray;
+	background: -webkit-linear-gradient(top, #b5bdc8 0%,#828c95 36%,#808080 100%);
 	font-weight: bold;
 	cursor: default;
 	-webkit-touch-callout: none;
@@ -158,6 +159,20 @@ div{
 	-moz-user-select: -moz-none;
 	-ms-user-select: none;
 	user-select: none;
+}
+#createGoalBtn{
+	position:absolute;
+	opacity:0.7;
+	width: 10%;
+	right:0px;
+	top:0px;
+	font-size: 22px;
+	padding:5px 5px;
+	//border-bottom: 1px solid grey;
+	text-align: center;
+	background-color: rgb(230,230,230);
+}
+#searchbar{
 }
 
 #logout {
@@ -234,6 +249,9 @@ div{
 	left:37%;
 	bottom:30px;
 	opacity:0.5;
+}
+#cmd-input:focus{
+	color:blue;
 }
 #cmd-input:hover{
 	opacity:1;
