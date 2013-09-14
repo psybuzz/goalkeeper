@@ -2,6 +2,9 @@
 <html>
 	<head>
 		<link rel="stylesheet" href="css/bootstrap.min.css">
+		<link rel="stylesheet" href="css/goal-style.css">
+		<link rel="stylesheet" href="css/heading-style.css">
+		<link rel="stylesheet" href="css/content-style.css">
 		<link href='css/google-fonts.css' rel='stylesheet' type='text/css'>
 		<link href='css/style.css' rel='stylesheet' type='text/css'>
 	</head>
