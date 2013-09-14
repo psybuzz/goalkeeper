@@ -78,6 +78,8 @@ var app = app || {};
 				// $('body').css('margin', '100px');
 				$('.logo').addClass('logo-chosen');
 				$('.set').addClass('inline');
+				//put right backdrop in correct location
+				$('#rightbackdrop').css('top', parseInt($('header').css('height'),10) );
 
 				cart.addClass('transition');
 				cart.css('-webkit-transform', 'translateX(100px) translateY(150px)');
@@ -101,6 +103,9 @@ var app = app || {};
 				}, function(){
 					//cart.removeClass('transition');
 					$('#logout').fadeIn();
+
+					//put right backdrop in correct location
+					$('#rightbackdrop').css('top', 0 );
 				});
 				$('#rightpane').fadeIn();
 				$('#leftpane').removeClass('indent');

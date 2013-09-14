@@ -9,6 +9,7 @@ var app = app || {};
 		goalViews: [],
 		events: {
 		  'click #createGoalBtn': 'createGoal', 
+		  'click #searchBtn': 'toggleSearch',
 		},
 		dragSrcEl: null,
 
@@ -17,6 +18,8 @@ var app = app || {};
 
 		  this.collection = new GoalList();
 		  this.collection.bind('add', this.addGoal);
+
+		  $('#searchbar').hide();
 
 		  this.render();
 		},
@@ -27,6 +30,11 @@ var app = app || {};
 			$(this.container).html("<ol id='goalList'></ol>");
 			_(this.goalViews).each(function(view){ $('ol', this.el).append(view.el); }, this);
 			return this; // for chainable calls, like .render().el
+		},
+
+		toggleSearch: function(){
+			$('#searchbar').fadeToggle();
+			$('#searchbar').focus();
 		},
 
 		createGoal: function(text){

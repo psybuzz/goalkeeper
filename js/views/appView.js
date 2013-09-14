@@ -7,12 +7,11 @@ var app = app || {};
 		terminal: '#bigContainer',
 		lastDay: '',
 		events: {
-		  'click button#switchBtn': 'switchMode',
-		  'keypress #cmd-input': 'cmdInput'
+		  'keypress #cmd-input': 'cmdInput',
 		},
 		initialize: function(){
 			
-			_.bindAll(this, 'render', 'switchMode'); // every function that uses 'this' as the current object should be in here
+			_.bindAll(this, 'render', 'cmdInput'); // every function that uses 'this' as the current object should be in here
 			this.mode = 'goal';
 
 			this.head = new HeadingView({ model: new Heading });
@@ -22,8 +21,6 @@ var app = app || {};
 			this.render();
 			$('#cmd-input').focus();
 
-		//put right backdrop in correct location
-			$('#rightbackdrop').css('top', parseInt($('header').css('height'),10) );
 		//suggestions for new users
 			$('#suggestNewGoal').css('opacity', 0);
 			setTimeout(function(){
@@ -35,6 +32,9 @@ var app = app || {};
 					$('#suggestNewGoal').fadeOut();
 				}, 6000);
 			}, 400);
+
+		//scrolling
+			$(window).scroll(this.scrollResponse);
 		},
 		render: function(){
 			if (this.mode == 'goal'){
@@ -43,8 +43,15 @@ var app = app || {};
 				//right side bigger
 			}
 		},
-		switchMode: function(){
-			this.mode = this.mode == 'goal' ? 'card' : 'goal';
+		scrollResponse: function(e){
+			var scroll = $(window).scrollTop();
+			if (scroll > 85){
+				$('header').css('top', -85);
+				$('header').css('position', 'fixed');
+			} else {
+				$('header').css('position', 'relative');
+				$('header').css('top', 0);
+			}
 		},
 		cmdInput: function(e){
 			if (e.keyCode == 13){
