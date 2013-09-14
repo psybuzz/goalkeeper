@@ -61,6 +61,19 @@ div{
 	background-color: grey;
 }
 
+#rightpane{
+	width:75%;
+	position:absolute;
+	left:25%;
+	top:90px;
+}
+
+.suggestion{
+	color: rgb(55, 143, 240);
+	font-style: italic;
+}
+
+
 #login-overlay {
 	display: none;
 }
