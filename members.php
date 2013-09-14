@@ -27,8 +27,8 @@
 		
 		<!-- Right side: main content, stuff... -->
 		<div id="rightpane">
-			<div id="bigContainer">
-			</div>
+			<div id="bigContainer"></div>
+			<div id="checkpointPane"></div>
 			<input id="cmd-input" type="text" placeholder="what happened?">
 			<div id="rightbackdrop"></div>
 		</div>
