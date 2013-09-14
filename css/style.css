@@ -127,6 +127,12 @@ div{
 .selectable:hover{
 	background-color:rgb(230,230,230);
 }
+.dragging{
+	opacity:0.5;
+}
+.dragenter{
+	border: 2px dashed gray;
+}
 
 #goalList {
 	list-style:none;
@@ -136,7 +142,7 @@ div{
 	position:relative;
 	bottom:3%;
 	//left: 25px;
-	width: 70%;
+	width: 100%;
 	padding:5px 10px;
 	border-bottom: 1px solid grey;
 	background-color: rgb(230,230,230);
