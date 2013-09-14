@@ -31,19 +31,24 @@ var app = app || {};
 			var self = this;
 
 			var newHtml = "<div class='jumbotron'>"
-				+ "<ul class='setlist'>"
-					+ "<li class='logo'>" + self.model.get('backhead') + "</li>";
+							+ "<ul class='setlist'>"
+								+ "<li class='logo'>" + self.model.get('backhead') + "</li>";
 
 			//add each set
 			var sets = self.model.get('sets');
 			for (var i=0; i<sets.length; i++){
 				newHtml += "<li class='set'>" + sets[i] + "</li>";
 			}
-			newHtml += "</ul>"
-				+ "<h1 id='forehead'>" + self.model.get('forehead') + '</h1>'
-				+ "<div id='message' class='lead'>" + self.model.get('message')+"</div>"
-				+ "</div>"
-				+ "<button type='submit' id='logout' value='logout' formaction='../../logout.php'></button>";
+
+			newHtml 		+= "</ul>"
+							+ "<h1 id='forehead'>" + self.model.get('forehead') + '</h1>'
+							+ "<div id='message' class='lead'>" + self.model.get('message')+"</div>"
+							//+ "<div>"
+								+ "<form id='logout' name='logout' action='../../logout.php'>"
+									+ "<div id='logoutBtn' onclick='document.logout.submit();'>Log Out</div>"
+								+ "</form>"
+							//+ "</div>"
+						+ "</div>";
 
 			$(this.el).html( newHtml );
 			return this; // for chainable calls, like .render().el
