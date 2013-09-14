@@ -1,0 +1,102 @@
+
+#goalContainer{
+	/*width:25%;
+	height:70%;*/
+	position:relative;
+	left:0;
+	top:1%;
+	padding-bottom:30px;
+	/*overflow-y: auto;*/
+}
+
+.goal-label{
+	padding:10px 10px 10px 25px;
+	position:relative;
+	border-left: 7px solid;
+	box-shadow: inset 0px 0px 0px 0px #000000;
+}
+.goal-label:hover{
+	border-left-width: 15px;
+	box-shadow: inset -10px 0px 30px -17px #000000;
+}
+.selectable{
+	background-color: whitesmoke;
+}
+.selectable:hover{
+	background-color:rgb(230,230,230);
+}
+.dragging{
+	opacity:0.5;
+}
+.dragenter{
+	border: 2px dashed gray;
+}
+
+#goalList {
+	list-style:none;
+}
+
+#topbar{
+	position:absolute;
+	width: 100%;
+	height:30px;
+	left:0px;
+	//background-color: gray;
+	background: -webkit-linear-gradient(top, #b5bdc8 0%,#828c95 36%,#808080 100%);
+	font-weight: bold;
+	cursor: default;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: -moz-none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+#createGoalBtn{
+	position:absolute;
+	opacity:0.7;
+	width: 10%;
+	right:0px;
+	top:0px;
+	font-size: 22px;
+	padding:5px 5px;
+	//border-bottom: 1px solid grey;
+	text-align: center;
+	background-color: rgb(230,230,230);
+}
+
+#searchbar{
+
+}
+
+
+#createGoalBtn:hover{
+	background-color: lightgrey;
+}
+#createGoalBtn:active{
+	background-color: grey;
+}
+
+.removeGoalBtn{
+	display:none;
+	position: absolute;
+	top: 7px;
+	right: 10px;
+	background-color: lightcoral;
+	border-radius: 10px;
+	padding: 4px;
+}
+
+.upVoteBtn{
+	display:none;
+	position:absolute;
+	left:5px;
+}
+
+.downVoteBtn{
+	display:none;
+	position:absolute;
+	left:5px;
+	top:25px;
+}
