@@ -70,8 +70,7 @@ var app = app || {};
 		},
 		
 		unrender: function(){},
-
-	  });
+	});
 	  
 	//GoalView
 	GoalView = app.GoalView = Backbone.View.extend({
@@ -195,15 +194,10 @@ var app = app || {};
 			$(this.el).attr('contentEditable', 'true');
 
 			//draw the checkpoint panel
-			if (this.cPanelVisible == false)
-			{
-				$('#checkpointPane').show();
-				$('#checkpointPane').animate({
-					'right': 0
-				});
-
-				this.cPanelVisible = !this.cPanelVisible;
-			}
+			$('#checkpointPane').show();
+			$('#checkpointPane').animate({
+				'right': 0
+			});
 		
 			//load goal data into header
 			app.appView.head.setForehead( title );

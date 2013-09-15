@@ -37,10 +37,12 @@
 		<!-- Right side: main content, stuff... -->
 		<div id="rightpane">
 			<div id="bigContainer"></div>
-			<input id="cmd-input" type="text" placeholder="what happened?">
+			<input id="cmd-input" type="text" placeholder="what happened?"/>
 			<div id="rightbackdrop"></div>
 		</div>
-		<div id="checkpointPane"></div>
+		<div id="checkpointPane">
+			<div class="icon-remove" id="checkpointPaneClose"></div>
+		</div>
 
 		<script>
 			var username = "<?php echo $_SESSION['uname'];?>"

@@ -65,7 +65,7 @@ header{
 }
 
 .set:hover{
-	color:lightsalmon;
+	color: lightsalmon;
 }
 
 .logo-chosen{
@@ -93,4 +93,22 @@ header{
 	position: relative;
 	top: 250px;
 	left: 90;
+}
+
+#logout {
+	position: absolute;
+	right: 0;
+	top: 0;
+	margin: 0px;
+	text-align: center;
+	cursor: default;
+	padding: 7px;
+}
+
+#logout:hover {
+	background-color: lightgrey;
+}
+
+#logout:active {
+	background-color: grey;
 }

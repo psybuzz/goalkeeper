@@ -32,7 +32,7 @@ div{
 	position: absolute;
 	width: 15%;
 	background-color: rgb(220,220,220);
-	top: 0;
+	top: 90px;
 	height: 100%;
 	display: none;
 }
@@ -40,25 +40,6 @@ div{
 .suggestion{
 	color: rgb(55, 143, 240);
 	font-style: italic;
-}
-
-#logout {
-	position: absolute;
-	right: 0;
-	top: 0;
-	margin: 0px;
-	font-weight: bold;
-	text-align: center;
-	cursor: default;
-	padding: 7px;
-}
-
-#logout:hover {
-	background-color: lightgrey;
-}
-
-#logout:active {
-	background-color: grey;
 }
 
 #rightpane{
