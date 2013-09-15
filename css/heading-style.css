@@ -42,6 +42,7 @@ header{
 	top:-2px;
 	left:-25px;
 }
+
 .set{
 	display:none;
 	color:rgb(220,220,220);
@@ -50,6 +51,7 @@ header{
 	font-size: 31.5px;
 	margin-right:30px;
 }
+
 .logo{
 	color:rgb(220,220,220);
 	font-weight: bold;
@@ -100,7 +102,6 @@ header{
 	right: 0;
 	top: 0;
 	margin: 0px;
-	text-align: center;
 	cursor: default;
 	padding: 7px;
 }

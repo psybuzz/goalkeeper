@@ -15,19 +15,24 @@
 	border-left: 7px solid;
 	box-shadow: inset 0px 0px 0px 0px #000000;
 }
+
 .goal-label:hover{
 	border-left-width: 15px;
 	box-shadow: inset -10px 0px 30px -17px #000000;
 }
+
 .selectable{
 	background-color: whitesmoke;
 }
+
 .selectable:hover{
 	background-color:rgb(230,230,230);
 }
+
 .dragging{
 	opacity:0.5;
 }
+
 .dragenter{
 	border: 2px dashed gray;
 }

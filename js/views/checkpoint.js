@@ -3,13 +3,14 @@ var app = app || {};
 	//checkpoint view
 	CheckpointListView = app.CheckpointListView = Backbone.View.extend({
 		el: '#checkpointPane',
+		container: '#checkpointList'
 		checkpointViews: [],
 		events: {
-			'click #checkpointPaneClose: close'
-		}
+			'click #checkpointPaneClose': 'closePane',
+		},
 
 		initialize: function() {
-			_.bindAll(this, 'render', 'unrender', 'remove', 'createCheckpoint', 'addCheckpoint', 'close');
+			_.bindAll(this, 'render', 'unrender', 'remove', 'createCheckpoint', 'addCheckpoint', 'closePane');
 			this.collection = new CheckpointList();
 			this.collection.bind('add', this.addCheckpoint);
 
@@ -21,19 +22,17 @@ var app = app || {};
 			$(this.container).html("<ol id='checkpointList'></ol>");
 			_(this.checkpointViews).each(function(view){$('ol', this.el).append(view.el);}, this);
 
-			var newhtml = "<div class='icon-remove' id='checkpointPaneClose'></div>"
-			$(this.el).html(newhtml);
 			return this;
 		},
 
-		close: function() {
+		closePane: function() {
 			$(this.el).animate({
-				'right': -200
+				'right': -200%
 			});
 			$(this.el).hide();
-		}
+		},
 
-		unrender: function() {}
+		unrender: function() {},
 	});
 
 	CheckpointView = app.CheckpointView = Backbone.View.extend({

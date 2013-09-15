@@ -1,10 +1,30 @@
+#checkpointPane {
+	right: -15%;
+	position: absolute;
+	width: 20%;
+	background-color: rgb(220,220,220);
+	height: -moz-calc(100% - 90px);
+    height: -webkit-calc(100% - 90px);
+    height: calc(100% - 90px);
+	display: none;
+}
+
 #checkpointList {
 	
 }
 
 #checkpointPaneClose {
 	position: absolute;
-	left: 0;
 	top: 0;
-	z-index: 100;
+	left: 0;
+	margin: 0px;
+	padding: 7px;
+}
+
+#checkpointPaneClose:hover {
+	background-color: grey;
+}
+
+#checkpointPaneClose:active {
+	background-color: darkgrey;
 }

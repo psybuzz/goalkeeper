@@ -1,12 +1,13 @@
 <?php include('init.php');?>
 <html>
 	<head>
-		<link rel="stylesheet" href="css/bootstrap.min.css">
-		<link rel="stylesheet" href="css/goal-style.css">
-		<link rel="stylesheet" href="css/heading-style.css">
-		<link rel="stylesheet" href="css/content-style.css">
-		<link href='css/google-fonts.css' rel='stylesheet' type='text/css'>
-		<link href='css/style.css' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" href="css/bootstrap.min.css"/>
+		<link rel="stylesheet" href="css/goal-style.css"/>
+		<link rel="stylesheet" href="css/heading-style.css"/>
+		<link rel="stylesheet" href="css/content-style.css"/>
+		<link rel="stylesheet" href="css/checkpoint-style.css"/>
+		<link href='css/google-fonts.css' rel='stylesheet' type='text/css'/>
+		<link href='css/style.css' rel='stylesheet' type='text/css'/>
 	</head>
 	<body style="margin:0; background-color: #F2F2F2;">
 		<header></header>
@@ -41,7 +42,7 @@
 			<div id="rightbackdrop"></div>
 		</div>
 		<div id="checkpointPane">
-			<div class="icon-remove" id="checkpointPaneClose"></div>
+			<div class="icon-chevron-right" id="checkpointPaneClose"></div>
 		</div>
 
 		<script>

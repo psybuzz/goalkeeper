@@ -27,16 +27,6 @@ div{
 	left:25%;
 }
 
-#checkpointPane {
-	right: -15%;
-	position: absolute;
-	width: 15%;
-	background-color: rgb(220,220,220);
-	top: 90px;
-	height: 100%;
-	display: none;
-}
-
 .suggestion{
 	color: rgb(55, 143, 240);
 	font-style: italic;
