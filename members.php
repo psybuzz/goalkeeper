@@ -41,8 +41,9 @@
 			<input id="cmd-input" type="text" placeholder="what happened?"/>
 			<div id="rightbackdrop"></div>
 		</div>
+
 		<div id="checkpointPane">
-			<div class="icon-chevron-right" id="checkpointPaneClose"></div>
+				<div class="icon-chevron-right" id="checkpointPaneClose"></div>
 		</div>
 
 		<script>
@@ -59,6 +60,7 @@
 		<script src="js/views/content.js"></script>
 		<script src="js/views/goals.js"></script>
 		<script src="js/views/heading.js"></script>
+		<script src="js/views/checkpoint.js"></script>
 		<script src="js/app.js"></script>
 
 		

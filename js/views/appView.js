@@ -18,6 +18,7 @@ var app = app || {};
 			this.goalList = new GoalListView({ model: new Goal });
 			this.datesets = new DatesetView({ model: new Dateset });
 			this.cards = new CardView({ model: new Card });
+			this.checkpointList = new CheckpointListView({ model: new Checkpoint});
 			this.render();
 			$('#cmd-input').focus();
 
