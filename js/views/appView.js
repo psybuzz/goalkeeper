@@ -14,11 +14,12 @@ var app = app || {};
 			_.bindAll(this, 'render', 'cmdInput'); // every function that uses 'this' as the current object should be in here
 			this.mode = 'goal';
 
+			this.checkpointList = new CheckpointListView({ model: new Checkpoint});
 			this.head = new HeadingView({ model: new Heading });
 			this.goalList = new GoalListView({ model: new Goal });
 			this.datesets = new DatesetView({ model: new Dateset });
 			this.cards = new CardView({ model: new Card });
-			this.checkpointList = new CheckpointListView({ model: new Checkpoint});
+			//
 			this.render();
 			$('#cmd-input').focus();
 

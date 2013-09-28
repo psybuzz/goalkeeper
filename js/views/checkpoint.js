@@ -13,7 +13,7 @@ var app = app || {};
 			_.bindAll(this, 'render', 'unrender', 'remove', 'createCheckpoint', 'addCheckpoint', 'closePane');
 			this.collection = new CheckpointList();
 			this.collection.bind('add', this.addCheckpoint);
-			
+
 
 			this.render();
 		},
@@ -27,14 +27,20 @@ var app = app || {};
 		},
 
 		closePane: function() {
-			alert(1);
 			$(this.el).animate({
 				'right': -400
+			}, function() {
+				$(this.el).hide();
 			});
-			$(this.el).hide();
 		},
 
 		unrender: function() {},
+
+		remove: function() {},
+
+		createCheckpoint: function() {},
+
+		addCheckpoint: function() {},
 	});
 
 	CheckpointView = app.CheckpointView = Backbone.View.extend({

@@ -18,4 +18,5 @@ var app = app || {};
 	});
 	DatesetList = app.DatesetList = Backbone.Collection.extend({ model: Dateset });
 	CardList = app.CardList = Backbone.Collection.extend({ model: Card });
+	CheckpointList = app.CheckpointList = Backbone.Collection.extend({ model: Checkpoint });
 })();
