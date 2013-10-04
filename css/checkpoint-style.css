@@ -3,9 +3,10 @@
 	position: absolute;
 	width: 20%;
 	background-color: rgb(220,220,220);
-	height: -moz-calc(100% - 90px);
-    height: -webkit-calc(100% - 90px);
-    height: calc(100% - 90px);
+	top:90px;
+	min-height: -moz-calc(100% - 90px);
+    min-height: -webkit-calc(100% - 90px);
+    min-height: calc(100% - 90px);
 	display: none;
 }
 
@@ -14,10 +15,9 @@
 }
 
 #checkpointPaneClose {
-	position: absolute;
-	text-align: center;
-	top: 0;
-	left: 0;
+
+	top: 0px;
+	left: 0px;
 	margin: 0px;
 	padding: 6px;
 	background-position: -450px -66px;

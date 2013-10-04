@@ -6,11 +6,12 @@ var app = app || {};
 		container: '#checkpointList',
 		checkpointViews: [],
 		events: {
-			'click': 'closePane',
+			'click #checkpointPaneClose': 'closePane',
+			'click #createCheckpointBtn': 'createCheckpoint',
 		},
 
 		initialize: function() {
-			_.bindAll(this, 'render', 'unrender', 'remove', 'createCheckpoint', 'addCheckpoint', 'closePane');
+			_.bindAll(this, 'render', 'unrender', 'createCheckpoint', 'addCheckpoint', 'closePane');
 			this.collection = new CheckpointList();
 			this.collection.bind('add', this.addCheckpoint);
 
@@ -27,23 +28,69 @@ var app = app || {};
 		},
 
 		closePane: function() {
+			var self = this;
 			$(this.el).animate({
 				'right': -400
 			}, function() {
-				$(this.el).hide();
+				$(self.el).hide();
 			});
 		},
 
 		unrender: function() {},
 
-		remove: function() {},
+		createCheckpoint: function(titletext, descriptext) {
+			var checkpoint = new Checkpoint();
+			goal.set({ 
+				title: titletext,
+				description: descriptext,
+			});
 
-		createCheckpoint: function() {},
+			this.collection.add(checkpoint);
+			return checkpoint;
+		},
 
-		addCheckpoint: function() {},
+		addCheckpoint: function() {
+			var checkpointView = new CheckpointView({ model: newCheckpoint });
+			$('ol', this.el).append(goalView.render().el);
+			this.checkpointViews.push(checkpointViews);
+		},
 	});
 
 	CheckpointView = app.CheckpointView = Backbone.View.extend({
+		events: {
+			
+		},
 
+		initialize: function() {
+			_.bindAll(this, 'render', 'unrender', "removeCheckpoint", "remove");
+
+			this.model.bind('change', this.render);
+			this.model.bind('remove', this.remove);
+			return this.render();
+		},
+
+		render: function() {
+			var self = this;
+
+			$(this.el).html("<li class='checkpoint-label'>"
+								+ "<div class='checkbox'></div>"
+								+ self.model.get('title') + ". "
+								+ self.model.get('description') + ". "
+							+"</li>");
+
+			$(this.el).hide().fadeIn(50);
+
+			return this;
+		},
+
+		unrender: function() {},
+
+		removeCheckpoint: function() {
+
+		},
+
+		remove: function() {
+
+		}
 	});
 })();

@@ -47,12 +47,25 @@ var app = app || {};
 		},
 		scrollResponse: function(e){
 			var scroll = $(window).scrollTop();
-			if (scroll > 85){
-				$('header').css('top', -85);
+			if (scroll > 90) {
+				$('header').css('top', -90);
 				$('header').css('position', 'fixed');
+				$('#checkpointPane').css('height', '100%');
+				$('#checkpointPane').css('position', 'fixed');
+				$('#checkpointPane').css('top', 0);
+				$('#checkpointPane').css('height' ,'-moz-calc(100% - ' + scroll +')');
+				$('#checkpointPane').css('height' ,'-webkit-calc(100% - ' + scroll +')');
+				$('#checkpointPane').css('height' ,'calc(100% - ' + scroll +')');
+			} else if (scroll > 0) {
+				$('#checkpointPane').css('height' ,'-moz-calc(100% - 90px -' + scroll +')');
+				$('#checkpointPane').css('height' ,'-webkit-calc(100% - 90px -' + scroll +')');
+				$('#checkpointPane').css('height' ,'calc(100% - 90px -' + scroll +')');
 			} else {
 				$('header').css('position', 'relative');
 				$('header').css('top', 0);
+				$('#checkpointPane').css('position', 'absolute');
+				$('#checkpointPane').css('top', 90);
+
 			}
 		},
 		cmdInput: function(e){
