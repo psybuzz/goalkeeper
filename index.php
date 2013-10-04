@@ -3,11 +3,15 @@
 	<head>
 		<link rel="stylesheet" href="css/bootstrap.min.css">
 		<link href='css/google-fonts.css' rel='stylesheet' type='text/css'>
-		<link href='css/style.css' rel='stylesheet' type='text/css'>
+		<link href='css/index-style.css' rel='stylesheet' type='text/css'>
 
 		<script src="js/jquery-1.10.2.js"></script>
 	</head>
 	<body>
+		<div class='jumbotron'>
+			<span id='title'>goalkeeper</span>
+		</div>
+		<p id='subtitle' class='lead'><i>behind every winning team is a kick-ass goalie.</i></p>
 		<div id="loginpane">
 			<h3>Login to Goalkeeper</h3>
 			<form action="Login.php" method="post">
@@ -42,6 +46,14 @@
 			</form>
 		<!--This displays any error messages from login or registration-->
 		</div>
+		<footer>
+			<ul>
+				<li>ABOUT</li>
+				<li>FEATURES</li>
+				<li>CONTACT</li>
+			</ul>
+		</footer>
+
 		<?php if (isset($_SESSION['errors'])): ?>
 			<div id="form-errors">
 				<?php foreach($_SESSION['errors'] as $error): ?>
@@ -49,5 +61,13 @@
 				<?php endforeach; $_SESSION['errors'] = array();?>
 			</div>
 		<?php endif;?>
+
+		<script type="text/javascript">
+			$('.jumbotron').css('padding-top', '0px').css('opacity', '0')
+				.animate({
+					'padding-top': '8',
+					'opacity': '1'
+				});
+		</script>
 	</body>
 </html>

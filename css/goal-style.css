@@ -21,6 +21,12 @@
 	box-shadow: inset -10px 0px 30px -17px #000000;
 }
 
+.editable{
+	background-color:white;
+	color:black;
+	padding:1px;
+}
+
 .selectable{
 	background-color: whitesmoke;
 }

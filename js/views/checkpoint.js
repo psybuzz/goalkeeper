@@ -7,7 +7,10 @@ var app = app || {};
 		checkpointViews: [],
 		events: {
 			'click #checkpointPaneClose': 'closePane',
-			'click #createCheckpointBtn': 'createCheckpoint',
+<<<<<<< HEAD
+			
+=======
+>>>>>>> fc22e6be25c12adf8e6e79fe50993e81953db2a9
 		},
 
 		initialize: function() {
@@ -29,6 +32,11 @@ var app = app || {};
 
 		closePane: function() {
 			var self = this;
+
+<<<<<<< HEAD
+=======
+
+>>>>>>> fc22e6be25c12adf8e6e79fe50993e81953db2a9
 			$(this.el).animate({
 				'right': -400
 			}, function() {
