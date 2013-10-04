@@ -86,6 +86,7 @@ var app = app || {};
 		  'click .upVoteBtn': 'up',
 		  'click .downVoteBtn': 'down',
 		  'click': 'focus',
+		  'blur': 'blur',
 		  'dragstart': 'dragstart',
 		  'dragend': 'dragend',
 		  'dragover': 'dragover',
@@ -98,7 +99,7 @@ var app = app || {};
 		initialize: function(){
 			// every function that uses 'this' as the current object should be in here
 			_.bindAll(this, 'render', 'unrender', 'up', 'down', 'swap', 'remove', 'hover', 
-				'focus', 'leave', 'removeGoalDown', 'removeGoalUp', 'removeGoal'); 
+				'focus', 'blur', 'leave', 'removeGoalDown', 'removeGoalUp', 'removeGoal'); 
 
 			this.model.bind('change', this.render);
 			this.model.bind('remove', this.remove);
@@ -114,10 +115,11 @@ var app = app || {};
 			+ "<div class='upVoteBtn'><i class='icon-chevron-up'></i></div>"
 			+ "<div class='downVoteBtn'><i class='icon-chevron-down'></i></div>"
 			+ self.model.get('priority') + ". " 
-			+ self.model.get('title') + '<br>'
-			+ self.model.get('description') + ' ' 
+			+ "<span class='gTitle'>" + self.model.get('title') + '</span><br>'
+			+ "<span class='gDescription'>" + self.model.get('description') + ' ' 
 			+ self.model.get('progress') + '. Index: '
 			+ self.model.get('index')
+			+ "</span>"
 			+ "</li>");
 
 			$(this.el).hide().fadeIn(100);
@@ -214,6 +216,17 @@ var app = app || {};
 					$('#bigContainer').html("");
 				}
 			}
+
+
+
+
+			//to put into an edit func later..
+			//EDIT
+			$(".gTitle, .gDescription", this.el).addClass('editable');
+			// $(this.el).append("<div>I'm editable</div>");
+		},
+		blur: function(){
+
 		},
 		hover: function(){
 			$('.removeGoalBtn', this.el).show();

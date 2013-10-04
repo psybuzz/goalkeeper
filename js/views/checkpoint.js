@@ -6,7 +6,7 @@ var app = app || {};
 		container: '#checkpointList',
 		checkpointViews: [],
 		events: {
-			'click': 'closePane',
+			'click #checkpointPaneClose': 'closePane',
 		},
 
 		initialize: function() {
@@ -27,10 +27,12 @@ var app = app || {};
 		},
 
 		closePane: function() {
+			var self = this;
+
 			$(this.el).animate({
 				'right': -400
 			}, function() {
-				$(this.el).hide();
+				$(self.el).hide();
 			});
 		},
 
