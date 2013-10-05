@@ -5,6 +5,7 @@ username VARCHAR(30) NOT NULL,
 password CHAR(40) NOT NULL,
 email VARCHAR(70),
 active CHAR(32),
+date_joined TIMESTAMP(),
 PRIMARY KEY(id)
 );
 [/mysql]
