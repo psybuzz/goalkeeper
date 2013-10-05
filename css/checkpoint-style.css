@@ -11,11 +11,17 @@
 }
 
 #checkpointList {
-	
+	list-style: none;
+}
+
+#checkpointContainer {
+	position: relative;
+	left: 0;
+	top: 1%;
+	padding-bottom: 10px;
 }
 
 #checkpointPaneClose {
-
 	top: 0px;
 	left: 0px;
 	margin: 0px;
@@ -29,4 +35,41 @@
 
 #checkpointPaneClose:active {
 	background-color: darkgrey;
+}
+
+#createCheckpointBtn {
+	position: absolute;
+	width: 14px;
+	border: 2px solid grey;
+	padding: 3px;
+}
+
+#createCheckpointBtn:hover {
+	background-color: grey;
+}
+
+#createCheckpointBtn:active {
+	background-color: darkgrey;
+}
+
+.checkpoint-label {
+	position: relative;
+	padding:10px 10px 10px 15px;
+	border: 3px solid;
+	box-shadow: inset 0px 0px 0px 0px #000000;
+}
+
+.checkbox {
+	position: absolute;
+	border:2px solid;
+	border-radius: 10px;
+}
+
+.removeCheckpointBtn {
+	position: absolute;
+}
+
+.icon-plus-sign {
+	zoom: 120%;
+	background-position: 3 -93px;
 }

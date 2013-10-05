@@ -44,6 +44,8 @@
 
 		<div id="checkpointPane">
 				<div class="icon-chevron-right" id="checkpointPaneClose"></div>
+				<div class="icon-plus-sign" id="createCheckpointBtn"></div>
+				<div id="checkpointContainer"></div>
 		</div>
 
 		<script>
