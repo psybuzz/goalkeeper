@@ -22,6 +22,7 @@ var app = app || {};
 	Checkpoint = app.Checkpoint = Backbone.Model.extend({
 		defaults: {
 			title: 'get on this!',
+			description: 'time is running out!',
 			index: -1,
 			complete: 0,
 			created: 0,
