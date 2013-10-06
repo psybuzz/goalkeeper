@@ -64,8 +64,8 @@
 
 .checkbox {
 	position: absolute;
-	//border: 2px solid;
-	padding: 2px 3.5px;
+	height: 23px;
+	width: 1px;
 	background-color: lightblue;
 	bottom: 0;
 }
@@ -80,9 +80,8 @@
 
 .orderbox {
 	position: absolute;
-	//border: 2px solid;
-	height: 48%;
-	width: 8.8%;
+	height: 23px;
+	width: 21px;
 	background-color: lightgreen;
 	top: 0;
 }

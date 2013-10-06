@@ -48,7 +48,7 @@ var app = app || {};
 		addCheckpoint: function(newCheckpoint) {
 			var checkpointView = new CheckpointView({ model: newCheckpoint });
 			$('ol', this.el).append(checkpointView.render().el);
-			this.checkpointViews.push(checkpointViews);
+			this.checkpointViews.push(checkpointView);
 		},
 	});
 
@@ -70,9 +70,9 @@ var app = app || {};
 			var self = this;
 
 			$(this.el).html("<li class='checkpoint-label'>"
-								+ "<div class='removeCheckpointBtn'><i class='icon-remove' style='display: none'></i></div>"
+								+ "<div class='removeCheckpointBtn'><i class='icon-remove'></i></div>"
 								+ "<div class='orderbox'></div>"
-								+ "<div class='checkbox'><i class='icon-ok'></i></div>"
+								+ "<div class='checkbox'><i></i></div>"
 								+ "<div class='checkpoint-text'>"
 									+ self.model.get('title') + '<br>'
 									+ self.model.get('description')
@@ -88,23 +88,25 @@ var app = app || {};
 
 		checkToggle: function() {
 			var self = this;
+			//$('i', self).toggle();
 			if (self.model.get("complete") === 0) {
 				self.model.set({ complete: 1 });
-				/*$(self.el).css({
-					"height": "48%",
-					"width": "8.8%",
-					"padding": "none",
-				});*/
+				$(self).css({
+					"padding": "2px 3.5px",
+					"height": "auto",
+					"width": "auto",
+				});
+				$(self).find("i").addClass("icon-ok");
 			} else {
 				self.model.set({ complete: 0 })
-				/*$(self.el).css({
-					"padding": "2px 3.5px",
-					"height": "none",
-					"width": "none",
-				});*/
+				$(self).css({
+					"height": "23px",
+					"width": "1px",
+					"padding": "none",
+					
+				});
+				$(self).find("i").removeClass();
 			}
-
-			$('i', self.el).toggle();
 		},
 
 		removeCheckpoint: function() {
