@@ -69,7 +69,8 @@ var app = app || {};
 			var self = this;
 
 			$(this.el).html("<li class='checkpoint-label'>"
-								+ "<div class='checkbox'></div>"
+								+ "<div class='orderbox'></div>"
+								+ "<div class='checkbox'><i class='icon-ok'></i></div>"
 								+ "<div class='removeCheckpointBtn'><i class='icon-remove'></i></div>"
 								+ self.model.get('title') + '<br>'
 								+ self.model.get('description')

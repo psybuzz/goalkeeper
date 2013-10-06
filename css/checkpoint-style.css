@@ -54,22 +54,42 @@
 
 .checkpoint-label {
 	position: relative;
-	padding:10px 10px 10px 15px;
-	border: 3px solid;
+	padding:3px 3px 3px 5px;
+	border: 2px solid;
 	box-shadow: inset 0px 0px 0px 0px #000000;
+	margin: 2px 0px 2px 0px;
 }
 
 .checkbox {
 	position: absolute;
-	border:2px solid;
-	border-radius: 10px;
+	border: 2px solid;
+	left: -10.5%;
+	padding: 1px 3.5px;
+	bottom: -4%;
+}
+
+.orderbox {
+	position: absolute;
+	border: 2px solid;
+	left: -10.5%;
+	height: 48%;
+	width: 8.8%;
+	top: -5%;
 }
 
 .removeCheckpointBtn {
 	position: absolute;
+	right: 0;
+	top: 0;
+	padding: 1px 3px 1px 1px;
+	background-color: red;
 }
 
 .icon-plus-sign {
 	zoom: 120%;
 	background-position: 3 -93px;
+}
+
+.icon-remove {
+	background-position: -311px -1px;
 }
