@@ -83,15 +83,18 @@
 	padding:15px;
 	width:10px;
 }
+
 #searchBtn:hover{
 	background-color:lightgrey;
 }
+
 #searchIcon{
 	position:absolute;
 	top:7px;
 	left:12px;
 	//background-color:green;
 }
+
 #searchbar{
 	position:absolute;
 	height:20px;
@@ -106,6 +109,7 @@
 	border-radius:0px;
 	background-color: lightgray;
 }
+
 #searchbar:focus{
 	background-color: gray;
 	-webkit-transition: background-color 200ms linear;
@@ -115,10 +119,10 @@
 	transition: background-color 200ms linear;
 }
 
-
 #createGoalBtn:hover{
 	background-color: lightgrey;
 }
+
 #createGoalBtn:active{
 	background-color: grey;
 }
