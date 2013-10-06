@@ -39,9 +39,7 @@
 
 #createCheckpointBtn {
 	position: absolute;
-	width: 14px;
-	border: 2px solid grey;
-	padding: 3px;
+	padding: 4px;
 }
 
 #createCheckpointBtn:hover {
@@ -54,27 +52,39 @@
 
 .checkpoint-label {
 	position: relative;
-	padding:3px 3px 3px 5px;
+	padding:3px 3px 3px 0px;
 	border: 2px solid;
 	box-shadow: inset 0px 0px 0px 0px #000000;
-	margin: 2px 0px 2px 0px;
+	margin: 2px 0px 2px 0;
+}
+
+.checkpoint-text {
+	margin-left: 30px;
 }
 
 .checkbox {
 	position: absolute;
-	border: 2px solid;
-	left: -10.5%;
-	padding: 1px 3.5px;
-	bottom: -4%;
+	//border: 2px solid;
+	padding: 2px 3.5px;
+	background-color: lightblue;
+	bottom: 0;
+}
+
+.checkbox:hover {
+	background-color: rgb(124, 192, 224);
+}
+
+.checkbox:active {
+	background-color: rgb(25, 135, 187);
 }
 
 .orderbox {
 	position: absolute;
-	border: 2px solid;
-	left: -10.5%;
+	//border: 2px solid;
 	height: 48%;
 	width: 8.8%;
-	top: -5%;
+	background-color: lightgreen;
+	top: 0;
 }
 
 .removeCheckpointBtn {
@@ -86,8 +96,7 @@
 }
 
 .icon-plus-sign {
-	zoom: 120%;
-	background-position: 3 -93px;
+	background-position: 4.5 -92px;
 }
 
 .icon-remove {

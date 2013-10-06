@@ -55,10 +55,11 @@ var app = app || {};
 	CheckpointView = app.CheckpointView = Backbone.View.extend({
 		events: {
 			'click .removeCheckpointBtn': 'removeCheckpoint',
+			'click .checkbox': 'checkToggle',
 		},
 
 		initialize: function() {
-			_.bindAll(this, 'render', 'unrender', "removeCheckpoint", "remove");
+			_.bindAll(this, 'render', 'unrender', "removeCheckpoint", "remove", "checkToggle");
 
 			this.model.bind('change', this.render);
 			this.model.bind('remove', this.remove);
@@ -69,12 +70,14 @@ var app = app || {};
 			var self = this;
 
 			$(this.el).html("<li class='checkpoint-label'>"
+								+ "<div class='removeCheckpointBtn'><i class='icon-remove' style='display: none'></i></div>"
 								+ "<div class='orderbox'></div>"
 								+ "<div class='checkbox'><i class='icon-ok'></i></div>"
-								+ "<div class='removeCheckpointBtn'><i class='icon-remove'></i></div>"
-								+ self.model.get('title') + '<br>'
-								+ self.model.get('description')
-							+"</li>");
+								+ "<div class='checkpoint-text'>"
+									+ self.model.get('title') + '<br>'
+									+ self.model.get('description')
+								+ "</div>"
+							+ "</li>");
 
 			$(this.el).hide().fadeIn(100);
 
@@ -82,6 +85,27 @@ var app = app || {};
 		},
 
 		unrender: function() {},
+
+		checkToggle: function() {
+			var self = this;
+			if (self.model.get("complete") === 0) {
+				self.model.set({ complete: 1 });
+				/*$(self.el).css({
+					"height": "48%",
+					"width": "8.8%",
+					"padding": "none",
+				});*/
+			} else {
+				self.model.set({ complete: 0 })
+				/*$(self.el).css({
+					"padding": "2px 3.5px",
+					"height": "none",
+					"width": "none",
+				});*/
+			}
+
+			$('i', self.el).toggle();
+		},
 
 		removeCheckpoint: function() {
 			this.remove();
