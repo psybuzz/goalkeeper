@@ -72,7 +72,7 @@ var app = app || {};
 			$(this.el).html("<li class='checkpoint-label'>"
 								+ "<div class='removeCheckpointBtn'><i class='icon-remove'></i></div>"
 								+ "<div class='orderbox'></div>"
-								+ "<div class='checkbox'><i></i></div>"
+								+ "<div class='checkbox'><i class='unchecked icon-ok'></i></div>"
 								+ "<div class='checkpoint-text'>"
 									+ self.model.get('title') + '<br>'
 									+ self.model.get('description')
@@ -91,21 +91,10 @@ var app = app || {};
 			//$('i', self).toggle();
 			if (self.model.get("complete") === 0) {
 				self.model.set({ complete: 1 });
-				$(self).css({
-					"padding": "2px 3.5px",
-					"height": "auto",
-					"width": "auto",
-				});
-				$(self).find("i").addClass("icon-ok");
+				$("i", self.el).removeClass("unchecked");
 			} else {
 				self.model.set({ complete: 0 })
-				$(self).css({
-					"height": "23px",
-					"width": "1px",
-					"padding": "none",
-					
-				});
-				$(self).find("i").removeClass();
+				$("i", self.el).addClass("unchecked");
 			}
 		},
 

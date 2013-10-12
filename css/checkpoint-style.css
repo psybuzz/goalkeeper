@@ -62,10 +62,15 @@
 	margin-left: 30px;
 }
 
+.unchecked {
+	opacity: 0;
+}
+
 .checkbox {
 	position: absolute;
-	height: 23px;
-	width: 1px;
+	//height: 23px;
+	//width: 1px;
+	padding: 2px 3.5px;
 	background-color: lightblue;
 	bottom: 0;
 }
