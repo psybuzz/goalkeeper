@@ -111,7 +111,13 @@ var app = app || {};
 
 				//SAVE: Send update to DB
 				localStorage[ $('#forehead').text() ] = $('#bigContainer').html();
-
+				$.ajax({
+					url: "test.html",
+					cache: false
+				})
+				.done(function( html ) {
+					$( "#results" ).append( html );
+				});
 					
 
 				//scroll
