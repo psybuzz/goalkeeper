@@ -1,6 +1,6 @@
 <?php
 	require_once('php/connect.php');
-	//look at register.php
+
 	$user_id = mysqli_real_escape_string($con, $_POST['userId']);
 	$title = mysqli_real_escape_string($con, $_POST['title']);
 	$description = mysqli_real_escape_string($con, $_POST['description']);
