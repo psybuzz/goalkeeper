@@ -73,6 +73,8 @@
 	padding: 2px 3.5px;
 	background-color: lightblue;
 	bottom: 0;
+	text-decoration: line-through;
+	color: lightgrey;
 }
 
 .checkbox:hover {

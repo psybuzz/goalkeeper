@@ -63,7 +63,6 @@
 		if (empty($error)) {
 			$encrypt = md5(uniqid(rand(), true)); //does an md5 hash key encryption
 			$query = "INSERT INTO users (username, password, email, active) VALUES ('$username', SHA1('$password'), '$email', '$encrypt')";
-			
 			$result = mysqli_query($con, $query);
 			
 			if (mysqli_affected_rows($con) == 1) {

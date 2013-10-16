@@ -73,7 +73,7 @@ var app = app || {};
 								+ "<div class='removeCheckpointBtn'><i class='icon-remove'></i></div>"
 								+ "<div class='orderbox'></div>"
 								+ "<div class='checkbox'><i class='unchecked icon-ok'></i></div>"
-								+ "<div class='checkpoint-text'>"
+								+ "<div class='checkpoint-text' contentEditable='true'>"
 									+ self.model.get('title') + '<br>'
 									+ self.model.get('description')
 								+ "</div>"
@@ -91,10 +91,19 @@ var app = app || {};
 			//$('i', self).toggle();
 			if (self.model.get("complete") === 0) {
 				self.model.set({ complete: 1 });
-				$("i", self.el).removeClass("unchecked");
+				$(".icon-ok", self.el).removeClass("unchecked");
+				$(".checkpoint-text", self.el).css({
+					"text-decoration": "line-through",
+					"color": "grey",
+				});
+
 			} else {
 				self.model.set({ complete: 0 })
-				$("i", self.el).addClass("unchecked");
+				$(".icon-ok", self.el).addClass("unchecked");
+				$(".checkpoint-text", self.el).css({
+					"text-decoration": "none",
+					"color": "black",
+				});
 			}
 		},
 
