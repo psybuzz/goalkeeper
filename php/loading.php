@@ -4,11 +4,15 @@
 	$name = $_POST['name'];
 	$userId = $_POST['userId'];
 
-	$query = "SELECT title, description FROM goals WHERE id = '$userId'";
+	$query = "SELECT title, description FROM goals";
 	$result = mysqli_query($con, $query);
-	$goals = mysqli_fetch_array($result);
-	echo "done";
-	echo $goals;
+	
+	while($row = mysqli_fetch_assoc($result))
+	{
+		echo "|||";
+	    echo $row["title"];
+	}
 	//echo $goals['address'];
 	//$goal = stripslashes(mysqli_real_escape_characters($param));		//sanitize
 ?>
+
