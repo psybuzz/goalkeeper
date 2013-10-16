@@ -13,7 +13,7 @@
 		else
 		{
 			//email validation
-			if (!filter_var(stripslashes(trim($_POST['email'])), FILTER_VALIDATE_EMAIL)) {
+			if (!filter_var(mysqli_real_escape_string($_POST['email'])), FILTER_VALIDATE_EMAIL)) {
 				$error[] = "Please provide a valid email address.";
 			} else {
 				$address = mysqli_real_escape_string($con, $_POST['email']);
@@ -30,7 +30,7 @@
 			}
 			
 			//username validation
-			if (!valid_user(stripslashes(trim($_POST['username'])))){ 
+			if (!valid_user(mysqli_real_escape_string($_POST['username']))){ 
 				$error[] = "Your username must contain valid characters and 3-15 characters long.";
 			} else {
 				$user = mysqli_real_escape_string($con, $_POST['username']);
