@@ -9,6 +9,6 @@
 	$row=mysqli_fetch_array($result);
 	echo $row['address'];
 
-		$goal = stripslashes(mysqli_real_escape_characters($param));		//sanitize
+	$goal = stripslashes(mysqli_real_escape_characters($param));		//sanitize
 ?>
 
