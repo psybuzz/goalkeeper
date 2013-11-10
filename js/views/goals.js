@@ -194,6 +194,7 @@ var app = app || {};
 			var newRgb = "rgb(" + r2 + "," + g2 + "," + b2 + ")";
 			$('.goal-label', this.el).css('background-color', newRgb);
 			$(this.el).attr('contentEditable', 'true');
+			$('.checkpoint-label').css('background-color', newRgb);
 
 			//draw the checkpoint panel
 			$('#checkpointPane').show();

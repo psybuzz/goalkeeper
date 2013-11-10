@@ -53,9 +53,11 @@
 .checkpoint-label {
 	position: relative;
 	padding:3px 3px 3px 0px;
-	border: 2px solid;
+	border-radius: 4px;
 	box-shadow: inset 0px 0px 0px 0px #000000;
 	margin: 2px 0px 2px 0;
+	background-color: white;
+	border: 1px solid grey;
 }
 
 .checkpoint-text {
@@ -98,7 +100,7 @@
 	right: 0;
 	top: 0;
 	padding: 1px 3px 1px 1px;
-	background-color: red;
+	background-color: rgb(231, 221, 221);
 }
 
 .icon-plus-sign {
