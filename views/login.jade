@@ -9,4 +9,58 @@ block content
 
 	#loginpane
 		h3 Login to Goalkeeper
-		form(name="", method="", action="")
+		form(name="loginScript", method="post", action="/loginScript")
+			table
+				tr
+					tr
+						td Username
+						td
+							input(type="text", name="username")
+					tr
+						td Password
+						td
+							input(type="text", name="password")
+					table
+						tr
+							td
+								input#rememberMe(type="checkbox", name="rememberMe", value="1")
+							td
+								label.checkLabel(for="rememberMe") Remember me
+					td
+						input(type="submit", name="submit", value="Log In")
+//need to add some kind of divider//
+	#registerpane
+		h3 Not a member? Sign up!
+		form(name="registrationScript", method="post", action="/registrationScript")
+			table
+				tr
+					td Email
+					td
+						input(type="text", name="email")
+				tr
+					td Username
+					td
+						input(type="text", name="username")
+				tr
+					td Password
+					td
+						input(type="password", name="password")
+				tr
+					td Re-enter Password
+					td
+						input(type="password", name="repassword")
+				table
+					tr
+						td
+							input#t-pcheckbox(type="checkbox", name="terms-policy", value="agree")
+						td
+							label.checkLabel(for="terms-policy") Do you agree to our non-existent terms and policies?
+				tr
+					td
+						input(type="submit", name="submit")
+
+	footer
+		ul
+			li ABOUT
+			li FEATURES
+			li CONTACT
