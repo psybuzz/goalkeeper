@@ -1,0 +1,115 @@
+header{
+	position:relative;
+	z-index: 2;
+	width:100%;
+}
+
+#logo{
+	position:absolute;
+	right:20px;
+	top:20px;
+	border:1px solid black;
+	z-index: 1;
+	width: 30px;
+	height: 30px;
+}
+
+.jumbotron{
+	z-index:1;
+	padding: 0 0 35 0;
+	border-bottom:5px solid orange;
+	background-color:rgb(242,242,242);
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: -moz-none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+#forehead{
+	//border-bottom: 1px solid gray;
+	font-size:42px;
+	color:#636363;
+	position: relative;
+	margin:0px;
+	top:17px;
+	margin-left:40px;
+}
+
+.setlist{
+	position:absolute;
+	top:-2px;
+	left:-25px;
+}
+
+.set{
+	display:none;
+	color:rgb(220,220,220);
+	font-weight: bold;
+	line-height: 40px;
+	font-size: 31.5px;
+	margin-right:30px;
+}
+
+.logo{
+	color:rgb(220,220,220);
+	font-weight: bold;
+	line-height: 40px;
+	margin-right:30px;
+	margin-top:0px;
+	font-size:75px;
+	display:inline;
+}
+
+.logo:hover{
+	color:black;
+}
+
+.set:hover{
+	color: lightsalmon;
+}
+
+.logo-chosen{
+	color:black;
+	font-size:31.5px;
+}
+
+.chosen{
+	color:orange;
+}
+
+.inline{
+	display:inline;
+}
+
+#message{
+	position:relative;
+	top:10px;
+	margin-left:40px;
+	font-size:15px;
+	margin-bottom: -20px;
+}
+
+.indent {
+	position: relative;
+	top: 250px;
+	left: 90;
+}
+
+#logout {
+	position: absolute;
+	right: 0;
+	top: 0;
+	margin: 0px;
+	cursor: default;
+	padding: 7px;
+}
+
+#logout:hover {
+	background-color: lightgrey;
+}
+
+#logout:active {
+	background-color: grey;
+}

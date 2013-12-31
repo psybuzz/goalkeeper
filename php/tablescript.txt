@@ -1,0 +1,42 @@
+[mysql]
+CREATE TABLE users (
+id INT(11) NOT NULL AUTO_INCREMENT,
+username VARCHAR(30) NOT NULL,
+password CHAR(40) NOT NULL,
+email VARCHAR(70),
+active CHAR(32),
+date_joined TIMESTAMP,
+PRIMARY KEY (id)
+);
+
+CREATE TABLE goals (
+id INT(11) NOT NULL,
+goal_index INT(11) NOT NULL AUTO_INCREMENT,
+title VARCHAR(64) NOT NULL,
+description VARCHAR(255),
+checkpoints VARCHAR(255),
+created_time TIMESTAMP,
+end_time TIMESTAMP,
+PRIMARY KEY (goal_index)
+);
+
+CREATE TABLE checkpoints (
+checkpoint_index INT(11) NOT NULL AUTO_INCREMENT,
+title VARCHAR(64) NOT NULL,
+description VARCHAR(255),
+isDone VARCHAR(255),
+created_time TIMESTAMP,
+end_time TIMESTAMP,
+PRIMARY KEY (checkpoint_index)
+);
+
+CREATE TABLE content (
+goal_index INT(11) NOT NULL,
+label VARCHAR(64),
+log TEXT,
+uploaded_files VARCHAR(255),
+PRIMARY KEY (goal_index)
+);
+
+
+[/mysql]
