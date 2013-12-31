@@ -17,6 +17,6 @@ exports.index = function(db) {
  */
 
 exports.login = function(req, res) {
-	res.render('login', { title: 'Login to Goalkeeper',
+	res.render('members', { title: 'Login to Goalkeeper',
 						  register: 'Not a member? Sign up!' });
 };
