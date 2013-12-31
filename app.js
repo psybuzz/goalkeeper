@@ -38,8 +38,8 @@ app.get('/', routes.index(db));
 app.get('/users', user.list);
 app.get('/login', routes.login);
 
-app.post('/register', routes.register(db));
-app.post('/loginScript', routes.loginScript(db));
+//app.post('/register', routes.register(db));
+//app.post('/loginScript', routes.loginScript(db));
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
