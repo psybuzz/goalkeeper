@@ -17,6 +17,14 @@ exports.index = function(db) {
  */
 
 exports.login = function(req, res) {
-	res.render('members', { title: 'Login to Goalkeeper',
+	res.render('login', { title: 'Login to Goalkeeper',
 						  register: 'Not a member? Sign up!' });
+};
+
+exports.members = function(db) {
+	return function(req, res) {
+		var collection = db.get('users');
+		// need an AJAX call here
+		res.render('members', { title: 'Goalkeeper' });
+	};
 };
